@@ -1,0 +1,115 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-13 16:27 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: NEUTRAL
+  Nifty     : day -0.16% | week -0.97% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is neutral with a slight downward bias, presenting opportunities for swing trades in strong relative strength leaders.
+  Universe  : 2080/2080 scanned | filtered 1901
+  Data as of: 2026-08-13
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : NELCO
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  NELCO is a strong relative strength leader with a bullish EMA stack, indicating a potential continuation of its uptrend. The recent displacement candle closed through the 5-day structure, suggesting a breakout.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 1,047.50
+  Stop loss     : INR 985.35 (5.93%)
+  Target 1      : INR 1,109.65 (book 40-50%)
+  Target 2      : INR 1,156.49 (trail balance)
+  R:R           : 1:1.75  |  Expected move 10.40%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 16  |  Risk 0.99% of capital
+
+  SWING SNAPSHOT
+  RS 5d +7.5% | RS 20d +19.6% | RSI 65.7 | Vol 2.44x
+  Trend 90 | Pullback 20 | Breakout 70 | ATR 4.73%
+  vs 21 EMA +8.9% | vs 20d high -0.7%
+  Fair value INR 976.52 | distance +1.43 ATR (+7.27%)
+  Displacement 2.47x previous body | body/range 78% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter on a pullback to the 21 EMA
+  2. Set stop loss below the recent swing low
+  3. Target the nearest resistance level
+  4. Monitor daily closes for signs of trend reversal
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20d relative strength leader vs Nifty (+19.6%)
+    + Volume expansion 2.4x — institutions interested
+    + A+ displacement continuation away from fair value; body 2.5x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! RSI reaching overbought levels (>80)
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #2  |  Conviction A  |  AI-SELECTED
+  Symbol     : CONCOR
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  CONCOR is another strong relative strength leader with a bullish EMA stack, indicating a potential continuation of its uptrend. The recent displacement candle closed through the 5-day structure, suggesting a breakout.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 533.65
+  Stop loss     : INR 512.84 (3.90%)
+  Target 1      : INR 554.46 (book 40-50%)
+  Target 2      : INR 565.28 (trail balance)
+  R:R           : 1:1.52  |  Expected move 5.93%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 46  |  Risk 0.96% of capital
+
+  SWING SNAPSHOT
+  RS 5d +5.2% | RS 20d +7.8% | RSI 65.7 | Vol 1.98x
+  Trend 90 | Pullback 20 | Breakout 90 | ATR 2.69%
+  vs 21 EMA +5.4% | vs 20d high -0.3%
+  Fair value INR 509.33 | distance +1.69 ATR (+4.78%)
+  Displacement 6.44x previous body | body/range 87% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter on a pullback to the 21 EMA
+  2. Set stop loss below the recent swing low
+  3. Target the nearest resistance level
+  4. Monitor daily closes for signs of trend reversal
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20d relative strength leader vs Nifty (+7.8%)
+    + Volume expansion 2.0x — institutions interested
+    + A+ displacement continuation away from fair value; body 6.4x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! RSI reaching overbought levels (>80)
+    ! Honor swing stop on daily close basis — no averaging
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol    Conv    Side    Setup               RS20d    Entry      Target
+---  --------  ------  ------  ------------------  -------  ---------  ---------
+#1   NELCO     A       LONG    DISPLACEMENT CONTI  +19.6%   INR 1,048  INR 1,156
+#2   CONCOR    A       LONG    DISPLACEMENT CONTI  +7.8%    INR 534    INR 565
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

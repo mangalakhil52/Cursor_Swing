@@ -1,0 +1,70 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-14 16:00 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: NEUTRAL
+  Nifty     : day -0.12% | week -0.83% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is neutral with a slight bearish bias, presenting opportunities for swing trades in both directions. The focus will be on stocks with strong relative strength or those that are breaking down from recent structures.
+  Universe  : 2080/2080 scanned | filtered 1851
+  Data as of: 2026-08-14
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : HUDCO
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : SHORT
+  Hold       : 5-10 trading days
+  Score      : 92.2/100
+
+  THESIS
+  HUDCO is a weekly swing short via Displacement Continuation, with 20d RS -5.9% vs Nifty, trend quality 85, and confluence x2. The stock has shown a significant displacement away from its fair value, indicating a potential continuation of the downtrend.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 189.99
+  Stop loss     : INR 195.63 (2.97%)
+  Target 1      : INR 184.35 (book 40-50%)
+  Target 2      : INR 179.64 (trail balance)
+  R:R           : 1:1.83  |  Expected move 5.45%
+  Level logic   : nearest resistance + ATR buffer; target at ATR projection
+  Quantity      : 131  |  Risk 0.74% of capital
+
+  SWING SNAPSHOT
+  RS 5d -4.7% | RS 20d -5.9% | RSI 36.1 | Vol 1.74x
+  Trend 85 | Pullback 20 | Breakout 20 | ATR 2.48%
+  vs 21 EMA -4.1% | vs 20d high -7.4%
+  Fair value INR 197.30 | distance -1.55 ATR (-3.71%)
+  Displacement 3.40x previous body | body/range 84% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter short on the given entry price
+  2. Set stop loss as per the provided stop loss price
+  3. Target the first and second targets as mentioned
+  4. Monitor daily closes for any signs of trend reversal
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bearish EMA stack — swing short structure
+    + 20d relative weakness vs Nifty (-5.9%)
+    + Volume expansion 1.7x — institutions interested
+    + A+ displacement continuation away from fair value; body 3.4x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Honor swing stop on daily close basis — no averaging
+    ! Bullish reversal signs such as a close above the recent high
+    ! Honor swing stop on daily close basis — no averaging
+
+  (Only one high-quality swing found — do not force a second.)
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol    Conv    Side    Setup               RS20d    Entry    Target
+---  --------  ------  ------  ------------------  -------  -------  --------
+#1   HUDCO     A       SHORT   DISPLACEMENT CONTI  -5.9%    INR 190  INR 180
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

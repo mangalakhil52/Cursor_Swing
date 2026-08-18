@@ -1,0 +1,115 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-11 16:00 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: NEUTRAL
+  Nifty     : day -0.46% | week -0.58% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is neutral with a slight downward bias, presenting opportunities for swing trades in both directions. The focus will be on relative strength leaders and continuation trades with strong conviction.
+  Universe  : 2080/2080 scanned | filtered 1864
+  Data as of: 2026-08-11
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : SHREEJISPG
+  Setup      : Relative Strength Leader
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 96.4/100
+
+  THESIS
+  SHREEJISPG is a strong relative strength leader with a 20d RS of +7.7% vs Nifty. The stock has shown a constructive pullback to the 21 EMA and is poised for a continuation of its uptrend. The A+ video setup and volume expansion of 4.0x indicate institutional interest.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 629.75
+  Stop loss     : INR 606.48 (3.69%)
+  Target 1      : INR 653.02 (book 40-50%)
+  Target 2      : INR 672.41 (trail balance)
+  R:R           : 1:1.83  |  Expected move 6.77%
+  Level logic   : nearest support + ATR buffer; target at nearest resistance
+  Quantity      : 39  |  Risk 0.91% of capital
+
+  SWING SNAPSHOT
+  RS 5d -4.1% | RS 20d +7.7% | RSI 56.3 | Vol 4.03x
+  Trend 75 | Pullback 85 | Breakout 20 | ATR 3.08%
+  vs 21 EMA +0.8% | vs 20d high -7.6%
+  Fair value INR 629.07 | distance +0.04 ATR (+0.11%)
+  Displacement 2.88x previous body | body/range 71% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter at the given entry price
+  2. Set stop loss at the specified level
+  3. Target the first and second levels as specified
+  4. Manage the trade on a daily close basis
+
+  WHY
+    + 20-day RS leader vs Nifty (+7.7%)
+    + A+ video setup: displacement candle closed through 5-day structure
+    + Uptrend intact above 21 EMA
+    + Constructive pullback to 21 EMA
+    + 20-day RS leader vs Nifty (+7.7%) — institutional bid
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! Short-term RS divergence from 20d RS
+    ! Short-term RS diverging from 20d RS — wait for alignment
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #2  |  Conviction A  |  AI-SELECTED
+  Symbol     : AVANTIFEED
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : SHORT
+  Hold       : 5-10 trading days
+  Score      : 90.4/100
+
+  THESIS
+  AVANTIFEED presents a strong shorting opportunity with a displacement continuation setup. The stock has broken its 5-day structure, and the bearish EMA stack along with 20d relative weakness vs Nifty (-8.8%) supports the short thesis.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 859.80
+  Stop loss     : INR 902.65 (4.98%)
+  Target 1      : INR 816.95 (book 40-50%)
+  Target 2      : INR 788.98 (trail balance)
+  R:R           : 1:1.65  |  Expected move 8.24%
+  Level logic   : nearest resistance + ATR buffer; target at ATR projection
+  Quantity      : 23  |  Risk 0.99% of capital
+
+  SWING SNAPSHOT
+  RS 5d -2.1% | RS 20d -8.8% | RSI 33.4 | Vol 1.37x
+  Trend 85 | Pullback 20 | Breakout 20 | ATR 3.74%
+  vs 21 EMA -6.9% | vs 20d high -18.3%
+  Fair value INR 954.80 | distance -2.95 ATR (-9.95%)
+  Displacement 11.91x previous body | body/range 66% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter at the given entry price
+  2. Set stop loss at the specified level
+  3. Target the first and second levels as specified
+  4. Honor swing stop on a daily close basis
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bearish EMA stack — swing short structure
+    + 20d relative weakness vs Nifty (-8.8%)
+    + Volume ratio of 1.37 indicates some institutional participation
+    + A+ displacement continuation away from fair value; body 11.9x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to break below the specified entry
+    ! Reversal above the stop loss level
+    ! Honor swing stop on daily close basis — no averaging
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol      Conv    Side    Setup               RS20d    Entry    Target
+---  ----------  ------  ------  ------------------  -------  -------  --------
+#1   SHREEJISPG  A       LONG    RELATIVE STRENGTH   +7.7%    INR 630  INR 672
+#2   AVANTIFEED  A       SHORT   DISPLACEMENT CONTI  -8.8%    INR 860  INR 789
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

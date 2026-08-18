@@ -1,0 +1,115 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-06 16:00 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: BULLISH
+  Nifty     : day +0.05% | week +1.31% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is in a bullish trend with a 1.31% gain for the week, and the selected stocks are expected to perform well in the coming week.
+  Universe  : 2080/2080 scanned | filtered 1863
+  Data as of: 2026-08-06
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : CHOLAFIN
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  CHOLAFIN is a weekly swing long via Displacement Continuation. 20d RS +5.5% vs Nifty, trend quality 90, confluence x4. The stock has broken out of its 5-day structure and is expected to continue its uptrend.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 1,940.00
+  Stop loss     : INR 1,857.63 (4.25%)
+  Target 1      : INR 2,022.37 (book 40-50%)
+  Target 2      : INR 2,077.36 (trail balance)
+  R:R           : 1:1.67  |  Expected move 7.08%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 12  |  Risk 0.99% of capital
+
+  SWING SNAPSHOT
+  RS 5d +8.1% | RS 20d +5.5% | RSI 67.2 | Vol 1.67x
+  Trend 90 | Pullback 20 | Breakout 70 | ATR 3.22%
+  vs 21 EMA +7.1% | vs 20d high -0.6%
+  Fair value INR 1,804.52 | distance +2.17 ATR (+7.51%)
+  Displacement 7.25x previous body | body/range 71% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter long at 1940.0
+  2. Set stop loss at 1857.63
+  3. Target 1: 2022.37
+  4. Target 2: 2077.36
+
+  WHY
+    + A+ displacement continuation away from fair value; body 7.2x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20d relative strength leader vs Nifty (+5.5%)
+    + Volume expansion 1.7x — institutions interested
+    + A+ displacement continuation away from fair value; body 7.2x previous
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! Close below the stop loss of 1857.63
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #2  |  Conviction A  |  AI-SELECTED
+  Symbol     : SCI
+  Setup      : Displacement Continuation
+  Video grade: A (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  SCI is a weekly swing long via Displacement Continuation. 20d RS +8.3% vs Nifty, trend quality 75, confluence x4. The stock has broken out of its 5-day structure and is expected to continue its uptrend.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 308.60
+  Stop loss     : INR 296.15 (4.03%)
+  Target 1      : INR 321.05 (book 40-50%)
+  Target 2      : INR 329.06 (trail balance)
+  R:R           : 1:1.64  |  Expected move 6.63%
+  Level logic   : nearest support + ATR buffer; target at nearest resistance
+  Quantity      : 80  |  Risk 1.0% of capital
+
+  SWING SNAPSHOT
+  RS 5d +9.5% | RS 20d +8.3% | RSI 64.7 | Vol 2.38x
+  Trend 75 | Pullback 20 | Breakout 70 | ATR 3.01%
+  vs 21 EMA +6.4% | vs 20d high -0.8%
+  Fair value INR 289.86 | distance +2.02 ATR (+6.47%)
+  Displacement 3.73x previous body | body/range 59% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter long at 308.6
+  2. Set stop loss at 296.15
+  3. Target 1: 321.05
+  4. Target 2: 329.06
+
+  WHY
+    + A displacement continuation away from fair value; body 3.7x previous
+    + A video setup: candle body 3.7x previous (59% of range)
+    + Uptrend intact above 21 EMA
+    + 20d relative strength leader vs Nifty (+8.3%)
+    + Volume expansion 2.4x — institutions interested
+    + A displacement continuation away from fair value; body 3.7x previous
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! Close below the stop loss of 296.15
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol    Conv    Side    Setup               RS20d    Entry      Target
+---  --------  ------  ------  ------------------  -------  ---------  ---------
+#1   CHOLAFIN  A       LONG    DISPLACEMENT CONTI  +5.5%    INR 1,940  INR 2,077
+#2   SCI       A       LONG    DISPLACEMENT CONTI  +8.3%    INR 309    INR 329
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

@@ -1,0 +1,115 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-12 16:00 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: NEUTRAL
+  Nifty     : day -0.15% | week -0.77% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is neutral with a slight bearish bias, presenting opportunities for swing trades in both directions. The focus will be on stocks with strong relative strength and clean breakouts.
+  Universe  : 2080/2080 scanned | filtered 1862
+  Data as of: 2026-08-12
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : RAMRAT
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  RAMRAT is a strong weekly swing long candidate via Displacement Continuation, with 20d RS +12.3% vs Nifty, trend quality 90, and confluence x4. The stock has shown a bullish EMA stack and is near its 20-day high, indicating a potential breakout.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 473.95
+  Stop loss     : INR 445.80 (5.94%)
+  Target 1      : INR 502.10 (book 40-50%)
+  Target 2      : INR 525.56 (trail balance)
+  R:R           : 1:1.83  |  Expected move 10.89%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 35  |  Risk 0.99% of capital
+
+  SWING SNAPSHOT
+  RS 5d +9.3% | RS 20d +12.3% | RSI 64.4 | Vol 2.50x
+  Trend 90 | Pullback 20 | Breakout 70 | ATR 4.95%
+  vs 21 EMA +7.7% | vs 20d high -0.6%
+  Fair value INR 444.16 | distance +1.27 ATR (+6.71%)
+  Displacement 2.74x previous body | body/range 71% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter on a daily close above the entry price
+  2. Set stop loss at the specified level
+  3. Target the first and second levels for profit booking
+  4. Monitor daily closes for any signs of weakness
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20d relative strength leader vs Nifty (+12.3%)
+    + Volume expansion 2.5x — institutions interested
+    + A+ displacement continuation away from fair value; body 2.7x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! RSI reaching overbought levels (>70)
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #2  |  Conviction A  |  AI-SELECTED
+  Symbol     : PIDILITIND
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 96.4/100
+
+  THESIS
+  PIDILITIND is another strong weekly swing long candidate via Displacement Continuation, with 20d RS +7.8% vs Nifty, trend quality 90, and confluence x3. The stock has shown a bullish EMA stack and is near its 20-day high.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 1,701.50
+  Stop loss     : INR 1,659.26 (2.48%)
+  Target 1      : INR 1,743.74 (book 40-50%)
+  Target 2      : INR 1,778.94 (trail balance)
+  R:R           : 1:1.83  |  Expected move 4.55%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 14  |  Risk 0.59% of capital
+
+  SWING SNAPSHOT
+  RS 5d +3.0% | RS 20d +7.8% | RSI 66.8 | Vol 1.28x
+  Trend 90 | Pullback 20 | Breakout 70 | ATR 2.07%
+  vs 21 EMA +4.2% | vs 20d high +0.0%
+  Fair value INR 1,618.73 | distance +2.35 ATR (+5.11%)
+  Displacement 8.72x previous body | body/range 70% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter on a daily close above the entry price
+  2. Set stop loss at the specified level
+  3. Target the first and second levels for profit booking
+  4. Monitor daily closes for any signs of weakness
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20d relative strength leader vs Nifty (+7.8%)
+    + Volume expansion 1.28x — institutions interested
+    + A+ displacement continuation away from fair value; body 8.7x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! RSI reaching overbought levels (>70)
+    ! Honor swing stop on daily close basis — no averaging
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol      Conv    Side    Setup               RS20d    Entry      Target
+---  ----------  ------  ------  ------------------  -------  ---------  ---------
+#1   RAMRAT      A       LONG    DISPLACEMENT CONTI  +12.3%   INR 474    INR 526
+#2   PIDILITIND  A       LONG    DISPLACEMENT CONTI  +7.8%    INR 1,702  INR 1,779
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

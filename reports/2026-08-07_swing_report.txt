@@ -1,0 +1,115 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-07 16:00 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: BULLISH
+  Nifty     : day -0.27% | week +0.77% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is bullish with a positive bias, and the focus is on relative strength leaders and trend pullbacks to the 21 EMA. The market is expected to continue its uptrend, and swing trades should be taken in the direction of the trend.
+  Universe  : 2080/2080 scanned | filtered 1885
+  Data as of: 2026-08-07
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : M&M
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  M&M is a weekly swing long via Displacement Continuation. The stock has a 20-day relative strength of +10.4% vs Nifty, trend quality of 90, and confluence x3. The stock is expected to continue its uptrend, and the trade should be held for 5-10 trading days.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 3,502.00
+  Stop loss     : INR 3,392.67 (3.12%)
+  Target 1      : INR 3,611.33 (book 40-50%)
+  Target 2      : INR 3,697.58 (trail balance)
+  R:R           : 1:1.79  |  Expected move 5.58%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 7  |  Risk 0.77% of capital
+
+  SWING SNAPSHOT
+  RS 5d +2.3% | RS 20d +10.4% | RSI 68.7 | Vol 1.29x
+  Trend 90 | Pullback 20 | Breakout 70 | ATR 2.54%
+  vs 21 EMA +6.4% | vs 20d high -0.1%
+  Fair value INR 3,269.58 | distance +2.61 ATR (+7.11%)
+  Displacement 2.26x previous body | body/range 94% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter long on a daily close above the recent high
+  2. Set stop loss at the recent low
+  3. Target 1: nearest resistance + ATR buffer
+  4. Target 2: nearest resistance + 2*ATR buffer
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + A+ video setup: displacement candle closed through 5-day structure
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20-day relative strength leader vs Nifty (+10.4%)
+    + A+ displacement continuation away from fair value; body 2.3x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Close below the 21 EMA
+    ! Failure to break out above the recent high
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #2  |  Conviction A  |  AI-SELECTED
+  Symbol     : ATALREAL
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 91.4/100
+
+  THESIS
+  ATALREAL is a weekly swing long via Displacement Continuation. The stock has a 20-day relative strength of +18.9% vs Nifty, trend quality of 90, and confluence x2. The stock is expected to continue its uptrend, and the trade should be held for 5-10 trading days.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 35.30
+  Stop loss     : INR 34.09 (3.42%)
+  Target 1      : INR 36.51 (book 40-50%)
+  Target 2      : INR 37.51 (trail balance)
+  R:R           : 1:1.83  |  Expected move 6.26%
+  Level logic   : nearest support + ATR buffer; target at ATR projection
+  Quantity      : 708  |  Risk 0.85% of capital
+
+  SWING SNAPSHOT
+  RS 5d +5.7% | RS 20d +18.9% | RSI 79.9 | Vol 1.05x
+  Trend 90 | Pullback 20 | Breakout 20 | ATR 2.85%
+  vs 21 EMA +9.5% | vs 20d high -0.6%
+  Fair value INR 31.96 | distance +3.32 ATR (+10.43%)
+  Displacement 16.43x previous body | body/range 74% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter long on a daily close above the recent high
+  2. Set stop loss at the recent low
+  3. Target 1: nearest resistance + ATR buffer
+  4. Target 2: nearest resistance + 2*ATR buffer
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + A+ video setup: displacement candle closed through 5-day structure
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20-day relative strength leader vs Nifty (+18.9%)
+    + A+ displacement continuation away from fair value; body 16.4x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Close below the 21 EMA
+    ! Failure to break out above the recent high
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol    Conv    Side    Setup               RS20d    Entry      Target
+---  --------  ------  ------  ------------------  -------  ---------  ---------
+#1   M&M       A       LONG    DISPLACEMENT CONTI  +10.4%   INR 3,502  INR 3,698
+#2   ATALREAL  A       LONG    DISPLACEMENT CONTI  +18.9%   INR 35     INR 38
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

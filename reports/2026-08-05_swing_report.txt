@@ -1,0 +1,115 @@
+==============================================================================
+  INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
+==============================================================================
+  Scan time : 2026-08-05 16:00 IST
+  Mode      : WEEKLY SWING (hold 5-10 trading days)
+  Nifty bias: BULLISH
+  Nifty     : day +0.04% | week +1.54% | above 21 EMA
+  AI engine : groq/llama-3.3-70b-versatile | TRADE
+  AI week   : Nifty is in a bullish trend with a bias towards the upside, having a day change of 0.04% and a week change of 1.54%. The index is trading above its EMA, indicating a strong uptrend.
+  Universe  : 2080/2080 scanned | filtered 1868
+  Data as of: 2026-08-05
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #1  |  Conviction A  |  AI-SELECTED
+  Symbol     : ASHAPURMIN
+  Setup      : Displacement Continuation
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  ASHAPURMIN is a weekly swing long via Displacement Continuation. The stock has a 20d RS of +14.8% vs Nifty, trend quality of 90, and confluence x4. It is breaking out with a strong body-to-range ratio and has a bullish EMA stack.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 739.70
+  Stop loss     : INR 707.65 (4.33%)
+  Target 1      : INR 771.75 (book 40-50%)
+  Target 2      : INR 788.00 (trail balance)
+  R:R           : 1:1.51  |  Expected move 6.53%
+  Level logic   : nearest support + ATR buffer; target at nearest resistance
+  Quantity      : 31  |  Risk 0.99% of capital
+
+  SWING SNAPSHOT
+  RS 5d +3.0% | RS 20d +14.8% | RSI 65.8 | Vol 1.92x
+  Trend 90 | Pullback 20 | Breakout 70 | ATR 3.30%
+  vs 21 EMA +6.1% | vs 20d high -0.6%
+  Fair value INR 700.40 | distance +1.61 ATR (+5.61%)
+  Displacement 3.91x previous body | body/range 61% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter at 739.7
+  2. Stop loss at 707.65
+  3. Target 1 at 771.75
+  4. Target 2 at 788.0
+
+  WHY
+    + A+ displacement continuation away from fair value
+    + Bullish EMA stack (9>21>50) — Stage-2 style trend
+    + 20d relative strength leader vs Nifty (+14.8%)
+    + Volume expansion 1.9x — institutions interested
+    + A+ displacement continuation away from fair value; body 3.9x previous
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! RSI reaching overbought levels
+    ! Extended from EMA — chasing risk; prefer pullback
+
+------------------------------------------------------------------------------
+  WEEKLY PICK #2  |  Conviction A  |  AI-SELECTED
+  Symbol     : OPTIEMUS
+  Setup      : Relative Strength Leader
+  Video grade: A+ (structure break)
+  Direction  : LONG
+  Hold       : 5-10 trading days
+  Score      : 100.0/100
+
+  THESIS
+  OPTIEMUS is a weekly swing long via Relative Strength Leader. The stock has a 20d RS of +10.3% vs Nifty, trend quality of 75, and confluence x2. It has a constructive pullback to the 21 EMA and a volume expansion of 2.2x.
+
+  LEVELS (swing — daily timeframe)
+  Entry/Trigger : INR 590.45
+  Stop loss     : INR 556.84 (5.69%)
+  Target 1      : INR 624.06 (book 40-50%)
+  Target 2      : INR 652.07 (trail balance)
+  R:R           : 1:1.83  |  Expected move 10.44%
+  Level logic   : nearest support + ATR buffer; target at nearest resistance
+  Quantity      : 29  |  Risk 0.97% of capital
+
+  SWING SNAPSHOT
+  RS 5d -6.2% | RS 20d +10.3% | RSI 54.5 | Vol 2.22x
+  Trend 75 | Pullback 85 | Breakout 20 | ATR 4.74%
+  vs 21 EMA +0.3% | vs 20d high -10.7%
+  Fair value INR 589.31 | distance +0.04 ATR (+0.19%)
+  Displacement 2.31x previous body | body/range 74% | BOS confirmed
+
+  PLAYBOOK
+  1. Enter at 590.45
+  2. Stop loss at 556.84
+  3. Target 1 at 624.06
+  4. Target 2 at 652.07
+
+  WHY
+    + 20-day RS leader vs Nifty (+10.3%) — institutional bid
+    + A+ video setup: displacement candle closed through 5-day structure
+    + Uptrend intact above 21 EMA
+    + Volume expansion 2.2x — institutions interested
+    + 20-day RS leader vs Nifty (+10.3%) — institutional bid
+    + A+ video setup: displacement candle closed through 5-day structure
+  RISKS
+    ! Failure to hold above the 21 EMA
+    ! RSI reaching overbought levels
+    ! Short-term RS diverging from 20d RS — wait for alignment
+
+------------------------------------------------------------------------------
+  WEEK AT A GLANCE
+#    Symbol      Conv    Side    Setup               RS20d    Entry    Target
+---  ----------  ------  ------  ------------------  -------  -------  --------
+#1   ASHAPURMIN  A       LONG    DISPLACEMENT CONTI  +14.8%   INR 740  INR 788
+#2   OPTIEMUS    A       LONG    RELATIVE STRENGTH   +10.3%   INR 590  INR 652
+
+------------------------------------------------------------------------------
+  Run once or twice a week (Sun night / Mon morning ideal).
+  Educational tool only. Not SEBI-registered advice.
+==============================================================================

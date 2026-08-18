@@ -1,0 +1,83 @@
+# Indian weekly swing scanner
+# Horizon: 5-10 trading days — NOT intraday
+
+market:
+  exchange_suffix: ".NS"
+  benchmark: "^NSEI"
+
+universe:
+  # Full NSE cash equity (EQ) — ~2000 symbols. Refresh with:
+  #   python scripts/refresh_universe.py --source nse_equity
+  # Alternatives:
+  #   data/nifty_total_market.csv  (~750)
+  #   data/nifty500.csv            (500)
+  list_file: data/nse_equity.csv
+  series: [EQ]                 # already EQ-filtered in file; kept for safety
+  # exclude: [IDEA, YESBANK]   # optional blocklist
+
+filters:
+  min_price: 30                # allow smaller names; liquidity filters still apply
+  max_price: 100000
+  min_avg_volume: 150000       # drop illiquid micro names
+  min_dollar_volume_cr: 10     # INR crores avg turnover floor
+
+risk:
+  capital: 100000
+  risk_per_trade_pct: 1.0      # risk per swing idea
+  min_risk_reward: 1.5         # reject plans below this; never invent a target
+  max_position_pct: 25
+
+swing:
+  hold_horizon: "5-10 trading days"
+  atr_stop_mult: 1.2           # minimum breathing room around normal volatility
+  atr_target_mult: 2.2         # realistic 1-2 week projection, not forced 3 ATR
+  stop_buffer_atr: 0.15        # place stop beyond nearby support/resistance
+  min_stop_pct: 1.2            # prevent stops inside normal market noise
+  max_stop_pct: 6.0            # reject setup when true structure is too far away
+  max_target_pct: 12.0         # cap unrealistic weekly projections
+  picks: 2                     # two best of the week
+
+intelligence:
+  min_atr_pct: 1.2
+  min_rs_20d: 1.5              # must beat/lag Nifty over ~1 month
+  allow_conviction_c: false
+
+# Adapted from the linked fair-pricing/displacement video.
+# The source strategy is 90-minute Nasdaq prop trading; for weekly NSE swings:
+# fair price = 20-day volume-weighted price, and candles are daily.
+video_methodology:
+  enabled: true
+  reject_grade_b: true         # video explicitly treats B setups as no-trades
+  # A  = body > previous body and >=55% of candle range
+  # A+ = A plus close through prior 5-day structure
+  min_fair_value_distance_atr: 0.8
+
+scoring:
+  min_score: 60
+  weights:
+    trend: 18
+    momentum: 12
+    volume: 12
+    volatility: 10
+    market_alignment: 12
+    energy: 16
+    relative_strength: 20
+
+indicators:
+  ema_fast: 9
+  ema_slow: 21
+  rsi_period: 14
+  atr_period: 14
+  volume_sma_period: 20
+
+# LLM picks the final 2 weekly trades (or NO_TRADE)
+ai:
+  enabled: true
+  provider: groq             # openai | groq | gemini | openrouter | ollama
+  model: llama-3.3-70b-versatile
+  temperature: 0.2
+  timeout_sec: 90
+  shortlist_size: 15
+  shortlist_min_score: 55
+  max_picks: 2
+  require_ai_approval: true
