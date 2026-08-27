@@ -5,6 +5,8 @@ import math
 from pathlib import Path
 import numpy as np
 import pandas as pd
+from src.event_engine import resolve_trade
+from src.regime_engine import classify_market
 
 @dataclass(frozen=True)
 class ResearchConfig:
@@ -40,14 +42,13 @@ def evaluate_symbol(symbol,daily,benchmark=None,cfg=ResearchConfig(),fno_symbols
     if not required.issubset(d.columns):raise ValueError(f'missing columns: {required-set(d.columns)}')
     fno_symbols=fno_symbols or set(); rows=[]
     for i in range(max(cfg.min_history,60),len(d)-cfg.horizon-1):
-        hist=d.iloc[:i+1]; f=_signal_features(hist,benchmark.iloc[:i+1] if benchmark is not None else None); direction='LONG' if f['mom20']>=0 else 'SHORT'
+        hist=d.iloc[:i+1]; b=benchmark.iloc[:i+1] if benchmark is not None else None; f=_signal_features(hist,b); direction='LONG' if f['mom20']>=0 else 'SHORT'
         if direction=='SHORT' and cfg.shorts_require_fno and symbol.upper() not in fno_symbols:continue
-        entry=float(d.open.iloc[i+1]); slip=cfg.slippage_bps/10000; entry*=1+slip if direction=='LONG' else 1-slip; risk=entry*cfg.stop_pct; target=entry+risk*cfg.target_r if direction=='LONG' else entry-risk*cfg.target_r; future=d.iloc[i+1:i+1+cfg.horizon]
-        if direction=='LONG':
-            mfe=(future.high.max()/entry-1) if len(future) else 0; mae=(future.low.min()/entry-1) if len(future) else 0; hit_t=bool((future.high>=target).any()); hit_s=bool((future.low<=entry-risk).any()); outcome=-1. if hit_s else (cfg.target_r if hit_t else (float(future.close.iloc[-1])/entry-1))
-        else:
-            mfe=(entry/future.low.min()-1) if len(future) else 0; mae=(entry/future.high.max()-1) if len(future) else 0; hit_t=bool((future.low<=target).any()); hit_s=bool((future.high>=entry+risk).any()); outcome=-1. if hit_s else (cfg.target_r if hit_t else (entry/float(future.close.iloc[-1])-1))
-        rows.append({'symbol':symbol,'signal_date':d.index[i],'execution_date':d.index[i+1],'direction':direction,'score':f['score'],'efficiency':f['efficiency'],'ann_vol':f['ann_vol'],'volume_ratio':f['volume_ratio'],'residual':f['residual'],'mfe_pct':mfe*100,'mae_pct':mae*100,'target_hit':hit_t,'stop_hit':hit_s,'r_multiple':outcome,'fwd5_pct':(float(d.close.iloc[min(i+5,len(d)-1)])/entry-1)*100*(1 if direction=='LONG' else -1),'fwd10_pct':(float(d.close.iloc[min(i+10,len(d)-1)])/entry-1)*100*(1 if direction=='LONG' else -1)})
+        regime=classify_market(b) if b is not None and len(b)>=60 else 'INSUFFICIENT_HISTORY'
+        entry=float(d.open.iloc[i+1]); slip=cfg.slippage_bps/10000; entry*=1+slip if direction=='LONG' else 1-slip; risk=entry*cfg.stop_pct; stop=entry-risk if direction=='LONG' else entry+risk; target=entry+risk*cfg.target_r if direction=='LONG' else entry-risk*cfg.target_r; future=d.iloc[i+1:i+1+cfg.horizon]
+        event=resolve_trade(future,entry,direction,stop,target)
+        mfe=((future.high.max()/entry-1) if direction=='LONG' else (entry/future.low.min()-1)) if len(future) else 0.; mae=((future.low.min()/entry-1) if direction=='LONG' else (entry/future.high.max()-1)) if len(future) else 0.
+        rows.append({'symbol':symbol,'signal_date':d.index[i],'execution_date':d.index[i+1],'direction':direction,'regime':regime,'score':f['score'],'efficiency':f['efficiency'],'ann_vol':f['ann_vol'],'volume_ratio':f['volume_ratio'],'residual':f['residual'],'mfe_pct':mfe*100,'mae_pct':mae*100,'target_hit':event['event']=='TARGET','stop_hit':event['event'].startswith('STOP'),'event':event['event'],'exit_date':event['exit_date'],'r_multiple':event['r_multiple'],'fwd5_pct':(float(d.close.iloc[min(i+5,len(d)-1)])/entry-1)*100*(1 if direction=='LONG' else -1),'fwd10_pct':(float(d.close.iloc[min(i+10,len(d)-1)])/entry-1)*100*(1 if direction=='LONG' else -1)})
     return pd.DataFrame(rows)
 
 def summarize(results):
