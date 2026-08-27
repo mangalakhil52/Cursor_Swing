@@ -29,10 +29,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: python -m pip install --upgrade pip && pip install -r requirements.txt scikit-learn
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
 
-      - name: Refresh NSE universe
+      - name: Refresh NSE equity universe
         run: python scripts/refresh_universe.py --source nse_equity
+
+      - name: Refresh current stock F&O universe
+        run: python scripts/update_fno_universe.py
 
       - name: Update persistent OHLCV history
         env:
@@ -54,10 +57,10 @@ jobs:
             reports/ml_research.csv
             reports/research_summary.json
 
-      - name: Commit updated history and reports
+      - name: Commit updated history, F&O universe and reports
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/history reports/research.csv reports/ml_research.csv reports/research_summary.json
-          git diff --cached --quiet || git commit -m "chore: update quant history and research"
+          git add data/history data/fno_mktlots.csv data/fno_universe.csv reports/research.csv reports/ml_research.csv reports/research_summary.json
+          git diff --cached --quiet || git commit -m "chore: update quant history, F&O universe and research"
           git push
