@@ -22,45 +22,38 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: python -m pip install --upgrade pip && pip install -r requirements.txt
-
       - name: Refresh NSE equity universe
         run: python scripts/refresh_universe.py --source nse_equity
-
       - name: Refresh current stock F&O universe
         run: python scripts/update_fno_universe.py
-
       - name: Update persistent OHLCV history
         env:
           HISTORY_YEARS: ${{ inputs.years || '5' }}
         run: python scripts/update_history.py --years "$HISTORY_YEARS" --data-dir data/history
-
+      - name: Update persistent Nifty benchmark
+        env:
+          HISTORY_YEARS: ${{ inputs.years || '5' }}
+        run: python scripts/update_benchmark_history.py --years "$HISTORY_YEARS" --out data/history/_benchmark.csv
       - name: Run quantitative research
-        run: python scripts/research_report.py --data-dir data/history --out reports/research.csv
-
+        run: python scripts/research_report.py --data-dir data/history --benchmark data/history/_benchmark.csv --out reports/research.csv
       - name: Run ML walk-forward research
         run: python scripts/ml_research_report.py --input reports/research.csv --out reports/ml_research.csv
-
       - name: Save research artifacts
         uses: actions/upload-artifact@v4
         with:
           name: quant-research-${{ github.run_number }}
-          path: |
-            reports/research.csv
-            reports/ml_research.csv
-            reports/research_summary.json
-
-      - name: Commit updated history, F&O universe and reports
+          path: reports/
+          retention-days: 30
+      - name: Commit updated history and reports
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/history data/fno_mktlots.csv data/fno_universe.csv reports/research.csv reports/ml_research.csv reports/research_summary.json
-          git diff --cached --quiet || git commit -m "chore: update quant history, F&O universe and research"
+          git add data/history data/fno_mktlots.csv data/fno_universe.csv reports
+          git diff --cached --quiet || git commit -m "chore: update market history and quant research"
           git push
