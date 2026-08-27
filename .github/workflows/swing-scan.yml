@@ -1,0 +1,61 @@
+name: Daily Swing Scan
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 18:00 IST (12:30 UTC), Monday-Friday, after the NSE cash session.
+    - cron: '30 12 * * 1-5'
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Refresh F&O universe
+        run: python scripts/update_fno_universe.py
+
+      - name: Refresh equity universe
+        run: python scripts/refresh_universe.py --source nse_equity
+
+      - name: Run daily swing scan
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TRADE_AI_API_KEY: ${{ secrets.TRADE_AI_API_KEY }}
+        run: python main.py --top 2 --output reports/latest_swing_scan.txt
+
+      - name: Commit scan journal and refreshed F&O universe
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/fno_universe.csv data/fno_mktlots.csv data/nse_equity.csv reports/latest_swing_scan.txt reports/swing_performance.xlsx
+          git diff --cached --quiet || git commit -m 'chore: daily swing scan and journal refresh'
+          git push
+
+      - name: Upload scan outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: swing-scan-${{ github.run_number }}
+          path: |
+            reports/latest_swing_scan.txt
+            reports/swing_performance.xlsx
+          retention-days: 30
