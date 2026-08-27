@@ -7,9 +7,9 @@ universe:
   list_file: data/nse_equity.csv
   series: [EQ]
 
+# Overnight cash-equity shorts are prohibited. A SHORT is valid only for
+# symbols in the current NSE stock-F&O universe.
 derivatives:
-  # Overnight cash-equity shorts are not permitted. A SHORT setup is allowed
-  # only when the underlying is currently eligible for NSE stock F&O.
   shorts_require_fno: true
   fno_universe_file: data/fno_universe.csv
 
