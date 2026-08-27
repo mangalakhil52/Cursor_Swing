@@ -1,13 +1,13 @@
 """Quantitative weekly swing scorer with an advanced mathematical overlay."""
 from __future__ import annotations
 from dataclasses import dataclass, field
-from pathlib import Path
 import pandas as pd
 from src.constants import CONVICTION_C,DIRECTION_LONG,DIRECTION_SHORT,MODE_SWING,SETUP_BASE_BREAK,SETUP_BREAKOUT,SETUP_DISPLACEMENT_CONTINUATION,SETUP_EMA_RECLAIM,SETUP_FAIR_VALUE_REVERSION,SETUP_RS_LEADER,SETUP_TREND_PULLBACK
 from src.data_fetcher import MarketSnapshot
 from src.indicators import enrich_daily,pivot_levels
 from src.intelligence import MarketContext,StockIntelligence,analyze_swing_stock,conviction_grade
 from src.advanced_engine import compute_advanced
+from src.fno_universe import load_fno_symbols,short_allowed
 
 @dataclass
 class AnalysisResult:
@@ -19,11 +19,7 @@ class AnalysisResult:
 
 class TradeScorer:
     def __init__(self,config:dict,market:MarketContext,nifty_closes:pd.Series|None=None,mode:str=MODE_SWING)->None:
-        self.config=config; self.market=market; self.mode=mode; self.nifty_bias=market.bias; self.nifty_closes=nifty_closes; self.weights=config["scoring"]["weights"]; ind=config["indicators"]; self.ema_fast=ind["ema_fast"]; self.ema_slow=ind["ema_slow"]; self.rsi_period=ind["rsi_period"]; self.atr_period=ind["atr_period"]; self.advanced_cfg=config.get("advanced",{})
-        fno_path=Path(config.get("derivatives",{}).get("fno_universe_file","data/fno_universe.csv")); self.fno_symbols=set()
-        if fno_path.exists():
-            try:self.fno_symbols=set(pd.read_csv(fno_path)["Symbol"].astype(str).str.strip().str.upper())
-            except Exception: self.fno_symbols=set()
+        self.config=config; self.market=market; self.mode=mode; self.nifty_bias=market.bias; self.nifty_closes=nifty_closes; self.weights=config["scoring"]["weights"]; ind=config["indicators"]; self.ema_fast=ind["ema_fast"]; self.ema_slow=ind["ema_slow"]; self.rsi_period=ind["rsi_period"]; self.atr_period=ind["atr_period"]; self.advanced_cfg=config.get("advanced",{}); dcfg=config.get("derivatives",{}); self.shorts_require_fno=bool(dcfg.get("shorts_require_fno",True)); self.fno_symbols=load_fno_symbols(dcfg.get("fno_universe_file","data/fno_universe.csv"))
 
     def analyze(self,snapshot:MarketSnapshot)->AnalysisResult|None:
         daily=enrich_daily(snapshot.daily,self.ema_fast,self.ema_slow,self.rsi_period,self.atr_period)
@@ -40,13 +36,14 @@ class TradeScorer:
         if intel.atr_pct<float(self.config.get("intelligence",{}).get("min_atr_pct",1.2)):return None
         min_rs=float(self.config.get("intelligence",{}).get("min_rs_20d",1.5))
         if abs(intel.rs_20d)<min_rs and intel.breakout_quality<70 and intel.pullback_quality<70:return None
-        trend,d=self._trend(intel,rsi); mom=self._momentum(rsi,intel); vol=self._volume(vr); vola=self._volatility(intel); market=self._market(d); energy=max(intel.pullback_quality,intel.breakout_quality,intel.trend_quality*.8); rs=self._rs(intel,d)
+        trend,d=self._trend(intel,rsi)
+        # Cash-equity swing trades are long-only. Overnight SHORT is permitted only for current F&O names.
+        if d==DIRECTION_SHORT and self.shorts_require_fno and not short_allowed(snapshot.symbol,self.fno_symbols):return None
+        mom=self._momentum(rsi,intel); vol=self._volume(vr); vola=self._volatility(intel); market=self._market(d); energy=max(intel.pullback_quality,intel.breakout_quality,intel.trend_quality*.8); rs=self._rs(intel,d)
         setups=self._setups(intel,d,rsi,vr,snapshot)
         if not setups:return None
         setup,direction,setup_reasons=setups[0]
-        # Cash-equity swing trades cannot carry a naked short overnight. A SHORT
-        # signal is permitted only when the underlying is currently in stock F&O.
-        if direction==DIRECTION_SHORT and self.config.get("derivatives",{}).get("shorts_require_fno",True) and snapshot.symbol.upper() not in self.fno_symbols:return None
+        if direction==DIRECTION_SHORT and self.shorts_require_fno and not short_allowed(snapshot.symbol,self.fno_symbols):return None
         adv=compute_advanced(daily,self.nifty_closes,direction)
         if self.advanced_cfg.get("enabled",True):
             if self.advanced_cfg.get("hard_reject",True) and adv.reject_reasons:return None
@@ -60,8 +57,8 @@ class TradeScorer:
             trigger=max(entry,hi20*1.002) if setup in (SETUP_BREAKOUT,SETUP_BASE_BREAK) else entry; ss=[x for x in (pl,intel.ema_fast,intel.ema_slow,piv["s1"],lo20) if x<trigger]; rr=[x for x in (ph,hi20,hi50,piv["r1"],piv["r2"],intel.fair_value if setup==SETUP_FAIR_VALUE_REVERSION else 0) if x>trigger]; support=max(ss) if ss else 0.; resistance=min(rr) if rr else 0.
         else:
             trigger=min(entry,lo20*.998) if setup in (SETUP_BREAKOUT,SETUP_BASE_BREAK) else entry; rr=[x for x in (ph,intel.ema_fast,intel.ema_slow,piv["r1"],hi20) if x>trigger]; ss=[x for x in (pl,lo20,lo50,piv["s1"],piv["s2"],intel.fair_value if setup==SETUP_FAIR_VALUE_REVERSION else 0) if x<trigger]; resistance=min(rr) if rr else 0.; support=max(ss) if ss else 0.
-        hold=str(self.config.get("swing",{}).get("hold_horizon","5-10 trading days")); reasons=setup_reasons+intel.notes+list(adv.reasons); risks=self._risks(intel,adv); thesis=f"{snapshot.symbol}: {direction.lower()} {setup.replace('_',' ').title()}, advanced score {adv.score:.1f}, estimated model edge {adv.edge_probability:.0%}."
-        if direction==DIRECTION_SHORT: risks=["F&O-only short: overnight short exposure requires derivatives",*risks]
+        hold=str(self.config.get("swing",{}).get("hold_horizon","5-10 trading days")); reasons=setup_reasons+intel.notes+list(adv.reasons); risks=self._risks(intel,adv); thesis=f"{snapshot.symbol}: {direction.lower()} {setup.replace('_',' ').title()}, advanced score {adv.score:.1f}, estimated model edge {adv.edge_probability:.0%}."; 
+        if direction==DIRECTION_SHORT: reasons.append("SHORT permitted only because symbol is in current F&O universe")
         return AnalysisResult(symbol=snapshot.symbol,direction=direction,setup=setup,score=round(composite,1),conviction=conviction,confluence=confluence,trend_score=round(trend,1),momentum_score=round(mom,1),volume_score=round(vol,1),volatility_score=round(vola,1),market_score=round(market,1),energy_score=round(energy,1),rs_score=round(rs,1),entry=entry,trigger=float(trigger),support=float(support),resistance=float(resistance),atr_value=atr,gap_pct=round(snapshot.gap_pct,2),day_change_pct=round(snapshot.day_change_pct,2),volume_ratio=round(vr,2),rsi=round(rsi,1),relative_strength=intel.rs_20d,session_date=snapshot.session_date,intel=intel,reasons=reasons,risks=risks,thesis=thesis,hold_horizon=hold,advanced_score=adv.score,edge_probability=adv.edge_probability,expected_r_multiple=adv.expected_r_multiple,regime_score=adv.regime_score,persistence=adv.persistence,entropy=adv.entropy,efficiency_ratio=adv.efficiency_ratio,residual_strength=adv.residual_strength,volatility_regime=adv.volatility_regime,advanced_reasons=list(adv.reasons),advanced_rejects=list(adv.reject_reasons))
 
     def _trend(self,i,r):
