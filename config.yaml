@@ -7,6 +7,12 @@ universe:
   list_file: data/nse_equity.csv
   series: [EQ]
 
+derivatives:
+  # Overnight cash-equity shorts are not permitted. A SHORT setup is allowed
+  # only when the underlying is currently eligible for NSE stock F&O.
+  shorts_require_fno: true
+  fno_universe_file: data/fno_universe.csv
+
 filters:
   min_price: 30
   max_price: 100000
@@ -39,7 +45,6 @@ video_methodology:
   reject_grade_b: true
   min_fair_value_distance_atr: 0.8
 
-# Advanced quantitative layer. These are hard quality gates, not cosmetic score boosts.
 advanced:
   enabled: true
   hard_reject: true
