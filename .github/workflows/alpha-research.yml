@@ -26,54 +26,48 @@ jobs:
         run: python scripts/build_alpha_dataset.py --output reports/alpha_dataset.parquet
       - name: Run purged walk-forward benchmark
         run: python scripts/run_walk_forward_alpha.py --input reports/alpha_dataset.parquet --output reports/alpha_oos_predictions.csv
+      - name: Enrich OOS predictions with point-in-time features
+        run: python scripts/enrich_oos_predictions.py --predictions reports/alpha_oos_predictions.csv --dataset reports/alpha_dataset.parquet --output reports/alpha_oos_enriched.csv
       - name: Probability uncertainty and calibration
-        run: python scripts/run_uncertainty.py --input reports/alpha_oos_predictions.csv --output reports/alpha_uncertainty.csv
+        run: python scripts/run_uncertainty.py --input reports/alpha_oos_enriched.csv --output reports/alpha_uncertainty.csv
       - name: Regime-conditioned calibration
-        run: python scripts/run_regime_calibration.py --input reports/alpha_oos_predictions.csv --output reports/regime_calibration.csv
+        run: python scripts/run_regime_calibration.py --input reports/alpha_oos_enriched.csv --output reports/regime_calibration.csv
       - name: Cross-sectional ranking
-        run: python scripts/run_cross_sectional_rank.py --input reports/alpha_oos_predictions.csv --output reports/cross_sectional_rank.csv --top-k 10
+        run: python scripts/run_cross_sectional_rank.py --input reports/alpha_oos_enriched.csv --output reports/cross_sectional_rank.csv --top-k 10
       - name: Learned cross-sectional alpha
-        run: python scripts/run_cross_sectional_alpha.py --input reports/alpha_oos_predictions.csv --output reports/cross_sectional_alpha_oos.csv
+        run: python scripts/run_cross_sectional_alpha.py --input reports/alpha_oos_enriched.csv --output reports/cross_sectional_alpha_oos.csv
       - name: Model diversity ensemble
-        run: python scripts/run_alpha_ensemble.py --input reports/alpha_oos_predictions.csv --output reports/alpha_ensemble_oos.csv
-      - name: Stacked ensemble
-        run: python scripts/run_ensemble_stack.py --input reports/alpha_ensemble_oos.csv --output reports/ensemble_stack_oos.csv
+        run: python scripts/run_alpha_ensemble.py --input reports/alpha_oos_enriched.csv --output reports/alpha_ensemble_oos.csv
+      - name: Walk-forward meta-label
+        run: python scripts/run_meta_label.py --input reports/alpha_ensemble_oos.csv --output reports/meta_label_oos.csv
+      - name: Stacked ensemble with all OOS signals
+        run: python scripts/run_ensemble_stack.py --input reports/meta_label_oos.csv --output reports/ensemble_stack_oos.csv --rank-input reports/cross_sectional_rank.csv
       - name: Residual alpha discovery
         run: python scripts/run_residual_alpha.py --input reports/ensemble_stack_oos.csv --output reports/residual_alpha_oos.csv
       - name: Multiple-testing and bootstrap evidence
         run: python scripts/run_multiple_testing.py --input reports/residual_alpha_oos.csv --output reports/multiple_testing.csv
-      - name: Prepare execution portfolio when candidates exist
-        run: |
-          if [ -f reports/portfolio_candidates.csv ]; then
-            python scripts/run_execution_portfolio.py --candidates reports/portfolio_candidates.csv --history data/history_daily --output reports/execution_portfolio.csv --capital 1000000 --max-positions 2
-          else
-            echo 'No portfolio_candidates.csv yet; execution simulation skipped.'
-          fi
+      - name: Build executable portfolio candidates
+        run: python scripts/build_portfolio_candidates.py --input reports/residual_alpha_oos.csv --rank-input reports/cross_sectional_rank.csv --history data/history_daily --output reports/portfolio_candidates.csv --probability-floor 0.65 --max-disagreement 0.12 --ensemble-threshold 68 --top-k 10
+      - name: Simulate actual portfolio execution
+        run: python scripts/run_execution_portfolio.py --candidates reports/portfolio_candidates.csv --history data/history_daily --output reports/execution_portfolio.csv --capital 1000000 --max-positions 2
       - name: Liquidity and market-impact execution costs
-        run: |
-          if [ -f reports/execution_portfolio.csv ]; then
-            python scripts/run_execution_costs.py --input reports/execution_portfolio.csv --output reports/execution_costs.csv
-          else
-            echo 'No execution portfolio; cost analysis skipped.'
-          fi
+        run: python scripts/run_execution_costs.py --input reports/execution_portfolio.csv --output reports/execution_costs.csv
       - name: Compare economic performance
-        run: python -m src.strategy_compare --input reports/alpha_oos_predictions.csv --output reports/strategy_comparison.csv
+        run: python -m src.strategy_compare --input reports/alpha_oos_enriched.csv --output reports/strategy_comparison.csv
       - name: Evaluate structural plus alpha ensemble
-        run: python scripts/evaluate_ensemble.py --input reports/alpha_oos_predictions.csv --output reports/ensemble_oos_comparison.csv
+        run: python scripts/evaluate_ensemble.py --input reports/alpha_oos_enriched.csv --output reports/ensemble_oos_comparison.csv
       - name: Portfolio risk stress
-        run: python scripts/run_portfolio_risk.py --input reports/alpha_oos_predictions.csv --output reports/portfolio_risk.csv
+        run: python scripts/run_portfolio_risk.py --input reports/alpha_oos_enriched.csv --output reports/portfolio_risk.csv
       - name: Parameter sensitivity analysis
-        run: python scripts/run_sensitivity.py --input reports/alpha_oos_predictions.csv --output reports/parameter_sensitivity.csv
+        run: python scripts/run_sensitivity.py --input reports/alpha_oos_enriched.csv --output reports/parameter_sensitivity.csv
       - name: Robustness summary
         run: python scripts/run_robustness.py --input reports/parameter_sensitivity.csv --output reports/robustness_summary.csv
       - name: Adversarial execution stress
-        run: python scripts/run_adversarial_stress.py --input reports/alpha_oos_predictions.csv --output reports/adversarial_stress.csv
-      - name: Walk-forward meta-label
-        run: python scripts/run_meta_label.py --input reports/alpha_oos_predictions.csv --output reports/meta_label_oos.csv
+        run: python scripts/run_adversarial_stress.py --input reports/alpha_oos_enriched.csv --output reports/adversarial_stress.csv
       - name: Commit research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/ensemble_stack_oos.csv reports/residual_alpha_oos.csv reports/multiple_testing.csv reports/execution_portfolio.csv reports/execution_portfolio_rejected.csv reports/execution_costs.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
-          git diff --cached --quiet || git commit -m 'research: fix execution pipeline dependency ordering'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_enriched.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/meta_label_oos.csv reports/ensemble_stack_oos.csv reports/residual_alpha_oos.csv reports/multiple_testing.csv reports/portfolio_candidates.csv reports/execution_portfolio.csv reports/execution_portfolio_rejected.csv reports/execution_costs.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv
+          git diff --cached --quiet || git commit -m 'research: connect OOS alpha stack to realistic execution portfolio'
           git push
