@@ -11,7 +11,7 @@ permissions:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,10 +26,12 @@ jobs:
         run: python scripts/build_alpha_dataset.py --output reports/alpha_dataset.parquet
       - name: Run purged walk-forward benchmark
         run: python scripts/run_walk_forward_alpha.py --input reports/alpha_dataset.parquet --output reports/alpha_oos_predictions.csv
+      - name: Compare economic performance
+        run: python -m src.strategy_compare --input reports/alpha_oos_predictions.csv --output reports/strategy_comparison.csv
       - name: Commit research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv
-          git diff --cached --quiet || git commit -m 'research: refresh alpha OOS benchmark'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/strategy_comparison.csv
+          git diff --cached --quiet || git commit -m 'research: refresh alpha OOS comparison'
           git push
