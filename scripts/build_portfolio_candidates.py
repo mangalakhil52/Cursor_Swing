@@ -17,27 +17,28 @@ p.add_argument('--ensemble-threshold',type=float,default=68.)
 p.add_argument('--top-k',type=int,default=10)
 a=p.parse_args()
 
-d=pd.read_csv(a.input)
-d['date']=pd.to_datetime(d['date'])
+def naive_index(idx):
+    x=pd.to_datetime(idx)
+    return x.tz_localize(None) if getattr(x,'tz',None) is not None else x
+
+d=pd.read_csv(a.input); d['date']=naive_index(d['date'])
 if 'stack_probability' not in d: raise SystemExit('stack_probability missing from residual alpha input')
 if 'model_disagreement' not in d: raise SystemExit('model_disagreement missing from residual alpha input')
 prob=pd.to_numeric(d.get('residual_adjusted_probability',d['stack_probability']),errors='coerce')
 d['execution_probability']=prob
-# Merge the point-in-time cross-sectional rank. It is used as a structural proxy only
-# for research because the standalone structural scanner score is not present in OOS rows.
 rp=Path(a.rank_input)
 if rp.exists():
     rank=pd.read_csv(rp,usecols=lambda c:c in {'date','symbol','cross_sectional_score','selected'})
-    rank['date']=pd.to_datetime(rank['date'])
+    rank['date']=naive_index(rank['date'])
     d=d.merge(rank.drop_duplicates(['date','symbol']),on=['date','symbol'],how='left')
 else:
     d['cross_sectional_score']=np.nan
 
 d['structural_score']=50.+50.*pd.to_numeric(d.get('cross_sectional_score',np.nan),errors='coerce').fillna(.5)
-# Reconstruct a conservative regime from Nifty history using only data through the signal date.
 bench=Path(a.history)/'^NSEI.csv'
 if bench.exists():
-    b=pd.read_csv(bench,index_col=0,parse_dates=True).sort_index(); close=b['close'].astype(float); ret=close.pct_change()
+    b=pd.read_csv(bench,index_col=0,parse_dates=True).sort_index(); b.index=naive_index(b.index)
+    close=b['close'].astype(float); ret=close.pct_change()
     def regime(dt):
         x=close.loc[close.index<=dt]; rr=ret.loc[ret.index<=dt]
         if len(x)<60:return 'SIDEWAYS'
@@ -60,14 +61,14 @@ rows=[]
 for _,r in d[d.eligible & d.execution_probability.notna()].sort_values(['date','ensemble_score'],ascending=[True,False]).iterrows():
     f=Path(a.history)/(str(r.symbol)+'.csv')
     if not f.exists():continue
-    bars=pd.read_csv(f,index_col=0,parse_dates=True).sort_index()
-    dt=pd.Timestamp(r.date)
-    px=bars.loc[bars.index<=dt]
+    bars=pd.read_csv(f,index_col=0,parse_dates=True).sort_index(); bars.index=naive_index(bars.index)
+    dt=pd.Timestamp(r.date); px=bars.loc[bars.index<=dt]
     if px.empty:continue
-    entry=float(px.close.iloc[-1]);
+    entry=float(px.close.iloc[-1])
     if not np.isfinite(entry) or entry<=0:continue
     volume=float(px.volume.iloc[-1]) if 'volume' in px else 0.
-    rows.append({'entry_date':dt,'symbol':str(r.symbol),'direction':'LONG','entry_price':entry,'stop_price':entry*.96,'target1':entry*1.08,'target2':entry*1.16,'probability':float(r.execution_probability),'vol_annual':float(px.close.pct_change().tail(20).std()*np.sqrt(252)) if len(px)>=21 else .2,'adv_value':entry*volume,'score':float(r.ensemble_score),'ensemble_score':float(r.ensemble_score),'regime':r.regime,'model_disagreement':float(r.model_disagreement),'signal_version':'STACK_EXEC_V1'})
+    vol=float(px.close.pct_change().tail(20).std()*np.sqrt(252)) if len(px)>=21 else .2
+    rows.append({'entry_date':dt,'symbol':str(r.symbol),'direction':'LONG','entry_price':entry,'stop_price':entry*.96,'target1':entry*1.08,'target2':entry*1.16,'probability':float(r.execution_probability),'vol_annual':vol,'adv_value':entry*volume,'score':float(r.ensemble_score),'ensemble_score':float(r.ensemble_score),'regime':r.regime,'model_disagreement':float(r.model_disagreement),'signal_version':'STACK_EXEC_V1'})
 
 out=pd.DataFrame(rows); Path(a.output).parent.mkdir(parents=True,exist_ok=True); out.to_csv(a.output,index=False)
 print(f'eligible_candidates={len(out)} dates={out.entry_date.nunique() if len(out) else 0}')
