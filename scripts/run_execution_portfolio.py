@@ -16,8 +16,9 @@ a=p.parse_args()
 out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
 c=pd.read_csv(a.candidates)
 if c.empty:
-    pd.DataFrame().to_csv(out,index=False)
-    pd.DataFrame(columns=['rejection_reason']).to_csv(out.with_name('execution_portfolio_rejected.csv'),index=False)
+    cols=['symbol','entry_date','direction','entry_price','stop_price','target1','target2','probability','vol_annual','adv_value','score']
+    pd.DataFrame(columns=cols).to_csv(out,index=False)
+    pd.DataFrame(columns=['symbol','rejection_reason']).to_csv(out.with_name('execution_portfolio_rejected.csv'),index=False)
     print('candidates=0 accepted=0 rejected=0')
     raise SystemExit(0)
 
