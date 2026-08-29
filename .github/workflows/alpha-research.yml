@@ -42,8 +42,20 @@ jobs:
         run: python scripts/run_residual_alpha.py --input reports/ensemble_stack_oos.csv --output reports/residual_alpha_oos.csv
       - name: Multiple-testing and bootstrap evidence
         run: python scripts/run_multiple_testing.py --input reports/residual_alpha_oos.csv --output reports/multiple_testing.csv
+      - name: Prepare execution portfolio when candidates exist
+        run: |
+          if [ -f reports/portfolio_candidates.csv ]; then
+            python scripts/run_execution_portfolio.py --candidates reports/portfolio_candidates.csv --history data/history_daily --output reports/execution_portfolio.csv --capital 1000000 --max-positions 2
+          else
+            echo 'No portfolio_candidates.csv yet; execution simulation skipped.'
+          fi
       - name: Liquidity and market-impact execution costs
-        run: python scripts/run_execution_costs.py --input reports/execution_portfolio.csv --output reports/execution_costs.csv
+        run: |
+          if [ -f reports/execution_portfolio.csv ]; then
+            python scripts/run_execution_costs.py --input reports/execution_portfolio.csv --output reports/execution_costs.csv
+          else
+            echo 'No execution portfolio; cost analysis skipped.'
+          fi
       - name: Compare economic performance
         run: python -m src.strategy_compare --input reports/alpha_oos_predictions.csv --output reports/strategy_comparison.csv
       - name: Evaluate structural plus alpha ensemble
@@ -62,6 +74,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/ensemble_stack_oos.csv reports/residual_alpha_oos.csv reports/multiple_testing.csv reports/execution_costs.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
-          git diff --cached --quiet || git commit -m 'research: add liquidity aware execution costs'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/ensemble_stack_oos.csv reports/residual_alpha_oos.csv reports/multiple_testing.csv reports/execution_portfolio.csv reports/execution_portfolio_rejected.csv reports/execution_costs.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
+          git diff --cached --quiet || git commit -m 'research: fix execution pipeline dependency ordering'
           git push
