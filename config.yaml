@@ -7,8 +7,6 @@ universe:
   list_file: data/nse_equity.csv
   series: [EQ]
 
-# Overnight cash-equity shorts are prohibited. A SHORT is valid only for
-# symbols in the current NSE stock-F&O universe.
 derivatives:
   shorts_require_fno: true
   fno_universe_file: data/fno_universe.csv
@@ -34,6 +32,12 @@ swing:
   max_stop_pct: 5.0
   max_target_pct: 12.0
   picks: 2
+
+# Persistent market history. Cold start caches 365 calendar days; subsequent
+# scans refresh only the latest 10 calendar days to capture corrections.
+data_cache:
+  history_days: 365
+  refresh_days: 10
 
 intelligence:
   min_atr_pct: 1.2
