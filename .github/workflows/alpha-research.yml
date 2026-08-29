@@ -11,7 +11,7 @@ permissions:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 105
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,10 +38,12 @@ jobs:
         run: python scripts/run_robustness.py --input reports/parameter_sensitivity.csv --output reports/robustness_summary.csv
       - name: Adversarial execution stress
         run: python scripts/run_adversarial_stress.py --input reports/alpha_oos_predictions.csv --output reports/adversarial_stress.csv
+      - name: Walk-forward meta-label
+        run: python scripts/run_meta_label.py --input reports/alpha_oos_predictions.csv --output reports/meta_label_oos.csv
       - name: Commit research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv
-          git diff --cached --quiet || git commit -m 'research: refresh adversarial robustness evidence'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
+          git diff --cached --quiet || git commit -m 'research: add walk-forward meta-label evidence'
           git push
