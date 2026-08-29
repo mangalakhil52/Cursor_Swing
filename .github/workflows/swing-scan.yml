@@ -3,7 +3,6 @@ name: Daily Swing Scan
 on:
   workflow_dispatch:
   schedule:
-    # 18:00 IST (12:30 UTC), Monday-Friday, after the NSE cash session.
     - cron: '30 12 * * 1-5'
 
 permissions:
@@ -12,7 +11,7 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,12 +42,12 @@ jobs:
           TRADE_AI_API_KEY: ${{ secrets.TRADE_AI_API_KEY }}
         run: python main.py --top 2 --output reports/latest_swing_scan.txt
 
-      - name: Commit scan journal and refreshed F&O universe
+      - name: Commit scan journal, universes and persistent history
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/fno_universe.csv data/fno_mktlots.csv data/nse_equity.csv reports/latest_swing_scan.txt reports/swing_performance.xlsx
-          git diff --cached --quiet || git commit -m 'chore: daily swing scan and journal refresh'
+          git add data/fno_universe.csv data/fno_mktlots.csv data/nse_equity.csv data/history_daily reports/latest_swing_scan.txt reports/swing_performance.xlsx
+          git diff --cached --quiet || git commit -m 'chore: daily swing scan, journal and history refresh'
           git push
 
       - name: Upload scan outputs
