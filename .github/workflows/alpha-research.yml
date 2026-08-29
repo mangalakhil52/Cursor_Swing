@@ -11,7 +11,7 @@ permissions:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 135
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,6 +34,8 @@ jobs:
         run: python scripts/run_cross_sectional_rank.py --input reports/alpha_oos_predictions.csv --output reports/cross_sectional_rank.csv --top-k 10
       - name: Learned cross-sectional alpha
         run: python scripts/run_cross_sectional_alpha.py --input reports/alpha_oos_predictions.csv --output reports/cross_sectional_alpha_oos.csv
+      - name: Model diversity ensemble
+        run: python scripts/run_alpha_ensemble.py --input reports/alpha_oos_predictions.csv --output reports/alpha_ensemble_oos.csv
       - name: Compare economic performance
         run: python -m src.strategy_compare --input reports/alpha_oos_predictions.csv --output reports/strategy_comparison.csv
       - name: Evaluate structural plus alpha ensemble
@@ -52,6 +54,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
-          git diff --cached --quiet || git commit -m 'research: add learned cross sectional alpha'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
+          git diff --cached --quiet || git commit -m 'research: add model diversity ensemble evidence'
           git push
