@@ -11,7 +11,7 @@ permissions:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,10 +32,12 @@ jobs:
         run: python scripts/evaluate_ensemble.py --input reports/alpha_oos_predictions.csv --output reports/ensemble_oos_comparison.csv
       - name: Portfolio risk stress
         run: python scripts/run_portfolio_risk.py --input reports/alpha_oos_predictions.csv --output reports/portfolio_risk.csv
+      - name: Parameter sensitivity analysis
+        run: python scripts/run_sensitivity.py --input reports/alpha_oos_predictions.csv --output reports/parameter_sensitivity.csv
       - name: Commit research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv
-          git diff --cached --quiet || git commit -m 'research: refresh alpha ensemble risk evidence'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv
+          git diff --cached --quiet || git commit -m 'research: refresh alpha robustness analysis'
           git push
