@@ -13,9 +13,13 @@ p.add_argument('--capital',type=float,default=1_000_000)
 p.add_argument('--max-positions',type=int,default=2)
 a=p.parse_args()
 
+out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
 c=pd.read_csv(a.candidates)
 if c.empty:
-    raise SystemExit('No execution candidates passed the model gates')
+    pd.DataFrame().to_csv(out,index=False)
+    pd.DataFrame(columns=['rejection_reason']).to_csv(out.with_name('execution_portfolio_rejected.csv'),index=False)
+    print('candidates=0 accepted=0 rejected=0')
+    raise SystemExit(0)
 
 bars={}
 for sym in c.symbol.astype(str).unique():
@@ -24,7 +28,6 @@ for sym in c.symbol.astype(str).unique():
         bars[sym]=pd.read_csv(f,index_col=0,parse_dates=True).sort_index()
 
 accepted,rejected=simulate_candidates(c,bars,a.capital,a.max_positions)
-out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
 accepted.to_csv(out,index=False)
 rejected.to_csv(out.with_name('execution_portfolio_rejected.csv'),index=False)
 print(f'candidates={len(c)} accepted={len(accepted)} rejected={len(rejected)}')
