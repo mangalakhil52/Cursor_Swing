@@ -52,6 +52,8 @@ jobs:
         run: python scripts/run_execution_portfolio.py --candidates reports/portfolio_candidates.csv --history data/history_daily --output reports/execution_portfolio.csv --capital 1000000 --max-positions 2
       - name: Liquidity and market-impact execution costs
         run: python scripts/run_execution_costs.py --input reports/execution_portfolio.csv --output reports/execution_costs.csv
+      - name: Final end-to-end system audit
+        run: python scripts/final_system_audit.py --candidates reports/portfolio_candidates.csv --executions reports/execution_portfolio.csv --costs reports/execution_costs.csv --output reports/final_system_audit.json
       - name: Compare economic performance
         run: python -m src.strategy_compare --input reports/alpha_oos_enriched.csv --output reports/strategy_comparison.csv
       - name: Evaluate structural plus alpha ensemble
@@ -68,6 +70,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_enriched.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/meta_label_oos.csv reports/ensemble_stack_oos.csv reports/residual_alpha_oos.csv reports/multiple_testing.csv reports/portfolio_candidates.csv reports/execution_portfolio.csv reports/execution_portfolio_rejected.csv reports/execution_costs.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv
-          git diff --cached --quiet || git commit -m 'research: connect OOS alpha stack to realistic execution portfolio'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_enriched.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/cross_sectional_alpha_oos.csv reports/alpha_ensemble_oos.csv reports/meta_label_oos.csv reports/ensemble_stack_oos.csv reports/residual_alpha_oos.csv reports/multiple_testing.csv reports/portfolio_candidates.csv reports/execution_portfolio.csv reports/execution_portfolio_rejected.csv reports/execution_costs.csv reports/final_system_audit.json reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv
+          git diff --cached --quiet || git commit -m 'research: add final end to end promotion audit'
           git push
