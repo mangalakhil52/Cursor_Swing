@@ -30,6 +30,8 @@ jobs:
         run: python scripts/run_uncertainty.py --input reports/alpha_oos_predictions.csv --output reports/alpha_uncertainty.csv
       - name: Regime-conditioned calibration
         run: python scripts/run_regime_calibration.py --input reports/alpha_oos_predictions.csv --output reports/regime_calibration.csv
+      - name: Cross-sectional ranking
+        run: python scripts/run_cross_sectional_rank.py --input reports/alpha_oos_predictions.csv --output reports/cross_sectional_rank.csv --top-k 10
       - name: Compare economic performance
         run: python -m src.strategy_compare --input reports/alpha_oos_predictions.csv --output reports/strategy_comparison.csv
       - name: Evaluate structural plus alpha ensemble
@@ -48,6 +50,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
-          git diff --cached --quiet || git commit -m 'research: add regime conditioned calibration evidence'
+          git add reports/alpha_dataset.parquet reports/alpha_oos_predictions.csv reports/alpha_oos_summary.csv reports/alpha_uncertainty.csv reports/alpha_calibration_bins.csv reports/regime_calibration.csv reports/regime_calibration_gate.csv reports/cross_sectional_rank.csv reports/strategy_comparison.csv reports/ensemble_oos_comparison.csv reports/ensemble_promotion_gate.csv reports/portfolio_risk.csv reports/parameter_sensitivity.csv reports/parameter_plateau.csv reports/robustness_summary.csv reports/adversarial_stress.csv reports/adversarial_summary.csv reports/meta_label_oos.csv
+          git diff --cached --quiet || git commit -m 'research: add cross sectional opportunity ranking'
           git push
