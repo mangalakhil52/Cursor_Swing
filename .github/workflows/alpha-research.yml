@@ -2,6 +2,11 @@ name: Alpha Research Dataset
 
 on:
   workflow_dispatch:
+    inputs:
+      history_years:
+        description: 'Years of history for symbols with no cache'
+        required: false
+        default: '5'
   schedule:
     - cron: '30 13 * * 6'
 
@@ -10,74 +15,143 @@ permissions:
 
 env:
   PYTHONPATH: ${{ github.workspace }}
+  HISTORY_DIR: data/history
 
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: pip
-      - name: Verify repository layout
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt pyarrow pytest
+
+      - name: Verify repository and Python imports
         run: |
           pwd
           test -f scripts/build_alpha_dataset.py
+          test -f scripts/update_history.py
+          test -f scripts/update_benchmark_history.py
           test -f src/__init__.py
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip && pip install -r requirements.txt pyarrow scikit-learn
+          python -m compileall -q src scripts
+
+      - name: Run unit tests before research
+        run: python -m pytest -q
+
+      - name: Refresh Nifty 500 universe
+        run: python -m scripts.refresh_universe --source nifty500 --output data/nifty500.csv
+
+      - name: Update persistent OHLCV history
+        env:
+          HISTORY_YEARS: ${{ inputs.history_years || '5' }}
+        run: python -m scripts.update_history --years "$HISTORY_YEARS" --data-dir "$HISTORY_DIR" --universe data/nifty500.csv
+
+      - name: Update persistent Nifty benchmark
+        env:
+          HISTORY_YEARS: ${{ inputs.history_years || '5' }}
+        run: python -m scripts.update_benchmark_history --years "$HISTORY_YEARS" --out "$HISTORY_DIR/_benchmark.csv"
+
+      - name: Validate cached history
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('data/history')
+          files=sorted(root.glob('*.csv'))
+          stock_files=[p for p in files if p.name != '_benchmark.csv']
+          if not stock_files: raise SystemExit('Persistent history cache is empty')
+          b=root/'_benchmark.csv'
+          if not b.exists(): raise SystemExit('Persistent benchmark cache is missing')
+          m=root/'_manifest.json'
+          if m.exists(): print(m.read_text()[:4000])
+          print(f'cached_stock_files={len(stock_files)} benchmark_rows={sum(1 for _ in b.open())-1}')
+          PY
+
       - name: Build point-in-time alpha dataset
-        run: python -m scripts.build_alpha_dataset --output reports/alpha_dataset.parquet
+        run: python -m scripts.build_alpha_dataset --history "$HISTORY_DIR" --benchmark _benchmark.csv --output reports/alpha_dataset.parquet
+
       - name: Run purged walk-forward benchmark
         run: python -m scripts.run_walk_forward_alpha --input reports/alpha_dataset.parquet --output reports/alpha_oos_predictions.csv
+
       - name: Enrich OOS predictions with point-in-time features
         run: python -m scripts.enrich_oos_predictions --predictions reports/alpha_oos_predictions.csv --dataset reports/alpha_dataset.parquet --output reports/alpha_oos_enriched.csv
+
       - name: Probability uncertainty and calibration
         run: python -m scripts.run_uncertainty --input reports/alpha_oos_enriched.csv --output reports/alpha_uncertainty.csv
+
       - name: Regime-conditioned calibration
         run: python -m scripts.run_regime_calibration --input reports/alpha_oos_enriched.csv --output reports/regime_calibration.csv
+
       - name: Cross-sectional ranking
         run: python -m scripts.run_cross_sectional_rank --input reports/alpha_oos_enriched.csv --output reports/cross_sectional_rank.csv --top-k 10
+
       - name: Learned cross-sectional alpha
         run: python -m scripts.run_cross_sectional_alpha --input reports/alpha_oos_enriched.csv --output reports/cross_sectional_alpha_oos.csv
+
       - name: Model diversity ensemble
         run: python -m scripts.run_alpha_ensemble --input reports/alpha_oos_enriched.csv --output reports/alpha_ensemble_oos.csv
+
       - name: Walk-forward meta-label
         run: python -m scripts.run_meta_label --input reports/alpha_ensemble_oos.csv --output reports/meta_label_oos.csv
+
       - name: Stacked ensemble with all OOS signals
         run: python -m scripts.run_ensemble_stack --input reports/meta_label_oos.csv --output reports/ensemble_stack_oos.csv --rank-input reports/cross_sectional_rank.csv
+
       - name: Residual alpha discovery
         run: python -m scripts.run_residual_alpha --input reports/ensemble_stack_oos.csv --output reports/residual_alpha_oos.csv
+
       - name: Multiple-testing and bootstrap evidence
         run: python -m scripts.run_multiple_testing --input reports/residual_alpha_oos.csv --output reports/multiple_testing.csv
+
       - name: Build executable portfolio candidates
-        run: python -m scripts.build_portfolio_candidates --input reports/residual_alpha_oos.csv --rank-input reports/cross_sectional_rank.csv --history data/history_daily --output reports/portfolio_candidates.csv --probability-floor 0.65 --max-disagreement 0.12 --ensemble-threshold 68 --top-k 10
+        run: python -m scripts.build_portfolio_candidates --input reports/residual_alpha_oos.csv --rank-input reports/cross_sectional_rank.csv --history "$HISTORY_DIR" --output reports/portfolio_candidates.csv --probability-floor 0.65 --max-disagreement 0.12 --ensemble-threshold 68 --top-k 10
+
       - name: Simulate actual portfolio execution
-        run: python -m scripts.run_execution_portfolio --candidates reports/portfolio_candidates.csv --history data/history_daily --output reports/execution_portfolio.csv --capital 1000000 --max-positions 2
+        run: python -m scripts.run_execution_portfolio --candidates reports/portfolio_candidates.csv --history "$HISTORY_DIR" --output reports/execution_portfolio.csv --capital 1000000 --max-positions 2
+
       - name: Liquidity and market-impact execution costs
         run: python -m scripts.run_execution_costs --input reports/execution_portfolio.csv --output reports/execution_costs.csv
+
       - name: Final end-to-end system audit
         run: python -m scripts.final_system_audit --candidates reports/portfolio_candidates.csv --executions reports/execution_portfolio.csv --costs reports/execution_costs.csv --output reports/final_system_audit.json
+
       - name: Compare economic performance
         run: python -m src.strategy_compare --input reports/alpha_oos_enriched.csv --output reports/strategy_comparison.csv
+
       - name: Evaluate structural plus alpha ensemble
         run: python -m scripts.evaluate_ensemble --input reports/alpha_oos_enriched.csv --output reports/ensemble_oos_comparison.csv
+
       - name: Portfolio risk stress
         run: python -m scripts.run_portfolio_risk --input reports/alpha_oos_enriched.csv --output reports/portfolio_risk.csv
+
       - name: Parameter sensitivity analysis
         run: python -m scripts.run_sensitivity --input reports/alpha_oos_enriched.csv --output reports/parameter_sensitivity.csv
+
       - name: Robustness summary
         run: python -m scripts.run_robustness --input reports/parameter_sensitivity.csv --output reports/robustness_summary.csv
+
       - name: Adversarial execution stress
         run: python -m scripts.run_adversarial_stress --input reports/alpha_oos_enriched.csv --output reports/adversarial_stress.csv
-      - name: Commit research outputs
+
+      - name: Upload research reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: alpha-research-${{ github.run_number }}
+          path: reports/
+          retention-days: 30
+
+      - name: Commit persistent cache and research outputs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/
-          git diff --cached --quiet || git commit -m 'research: update end to end outputs'
+          git add data/nifty500.csv data/history reports/
+          git diff --cached --quiet || git commit -m 'research: update persistent market cache and alpha outputs'
           git push
