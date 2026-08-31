@@ -2,7 +2,7 @@
 from __future__ import annotations
 import pandas as pd
 from .execution_path import simulate_trade, PathConfig
-from .position_sizing import size
+from .position_sizing import size, SizingConfig
 from .execution_costs import estimate_cost_bps
 
 
@@ -18,7 +18,8 @@ def simulate_candidates(candidates: pd.DataFrame, bars_by_symbol: dict[str,pd.Da
             z=c.to_dict(); z['rejection_reason']='MISSING_EXECUTION_BARS'; rejected.append(z); continue
         bars=bars.copy(); bars.index=pd.to_datetime(bars.index)
         future_bars=bars.loc[bars.index>entry_date]
-        s=size(entry=float(c.entry_price),stop=float(c.stop_price),probability=float(c.get('probability',.6)),realized_vol_annual=float(c.get('vol_annual',.2)),capital=capital)
+        cfg=SizingConfig(capital=float(capital))
+        s=size(entry=float(c.entry_price),stop=float(c.stop_price),probability=float(c.get('probability',.6)),realized_vol_annual=float(c.get('vol_annual',.2)),cfg=cfg)
         if s['quantity']<=0:
             z=c.to_dict(); z['rejection_reason']='ZERO_POSITION_SIZE'; rejected.append(z); continue
         if future_bars.empty:
@@ -31,6 +32,5 @@ def simulate_candidates(candidates: pd.DataFrame, bars_by_symbol: dict[str,pd.Da
         z.update({'execution_cost_bps':float(cost['total_cost_bps']),'participation':float(cost['participation']),'net_r':float(path['r_multiple']-cost_r),'gross_r':float(path['r_multiple'])})
         z['pnl_cash']=float(z['net_r'])*capital*s['risk_pct']
         accepted.append(z)
-        if path.get('exit_date') is not None:
-            active.append({'symbol':sym,'exit_date':pd.to_datetime(path['exit_date'])})
+        if path.get('exit_date') is not None: active.append({'symbol':sym,'exit_date':pd.to_datetime(path['exit_date'])})
     return pd.DataFrame(accepted),pd.DataFrame(rejected)
