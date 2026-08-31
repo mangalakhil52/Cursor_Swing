@@ -1,7 +1,8 @@
 from src.ensemble_engine import ensemble_score, decision
 
 def test_bull_weights_alpha_more():
-    assert ensemble_score(80,.80,'BULL') > ensemble_score(80,.80,'SIDEWAYS')
+    # Alpha and structural evidence must differ for weighting to have an effect.
+    assert ensemble_score(70,.80,'BULL') > ensemble_score(70,.80,'SIDEWAYS')
 
 def test_probability_floor_rejects():
     x=decision(100,.59,'BULL')
