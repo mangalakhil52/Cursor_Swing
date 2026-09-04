@@ -7,6 +7,15 @@ on:
         description: 'Years of history for symbols with no cache'
         required: false
         default: '5'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/alpha-research.yml'
+      - 'src/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'config/**'
+      - 'requirements.txt'
   schedule:
     - cron: '30 13 * * 6'
 
@@ -62,7 +71,6 @@ jobs:
       - name: Validate cached history
         run: |
           python - <<'PY'
-          import json
           from pathlib import Path
           root=Path('data/history')
           files=sorted(root.glob('*.csv'))
