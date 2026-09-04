@@ -1,0 +1,109 @@
+name: Alpha Research — Fast
+
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: 'Maximum symbols for fast iteration'
+        required: false
+        default: '100'
+      history_years:
+        description: 'Years of history for symbols with no cache'
+        required: false
+        default: '5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alpha-research-fast-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONPATH: ${{ github.workspace }}
+  HISTORY_DIR: data/history
+
+jobs:
+  fast-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt pyarrow pytest
+
+      - name: Verify and unit test
+        run: |
+          python -m compileall -q src scripts
+          python -m pytest -q
+
+      - name: Prepare fast research universe
+        env:
+          SYMBOL_LIMIT: ${{ inputs.symbols || '100' }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd
+          src = Path('data/nifty500.csv')
+          if not src.exists():
+              raise SystemExit('data/nifty500.csv is missing; run the full research workflow once to seed the universe')
+          d = pd.read_csv(src)
+          symbol_col = next((c for c in d.columns if c.lower() in {'symbol','ticker'}), None)
+          if symbol_col is None:
+              raise SystemExit(f'No symbol column found: {list(d.columns)}')
+          n = int(__import__('os').environ['SYMBOL_LIMIT'])
+          d = d.dropna(subset=[symbol_col]).drop_duplicates(subset=[symbol_col]).sort_values(symbol_col).head(n)
+          Path('reports/fast').mkdir(parents=True, exist_ok=True)
+          d.to_csv('reports/fast/research_universe.csv', index=False)
+          print(f'fast_symbols={len(d)}')
+          PY
+
+      - name: Build or reuse fast alpha dataset
+        env:
+          HISTORY_YEARS: ${{ inputs.history_years || '5' }}
+        run: |
+          mkdir -p reports/fast
+          if [ -f reports/fast/alpha_dataset.parquet ]; then
+            echo 'Using cached fast alpha dataset'
+          else
+            python -m scripts.build_alpha_dataset --history "$HISTORY_DIR" --benchmark _benchmark.csv --output reports/fast/alpha_dataset.parquet
+          fi
+
+      - name: Walk-forward alpha
+        run: python -m scripts.run_walk_forward_alpha --input reports/fast/alpha_dataset.parquet --output reports/fast/alpha_oos_predictions.csv
+
+      - name: Enrich OOS predictions
+        run: python -m scripts.enrich_oos_predictions --predictions reports/fast/alpha_oos_predictions.csv --dataset reports/fast/alpha_dataset.parquet --output reports/fast/alpha_oos_enriched.csv
+
+      - name: Cross-sectional rank
+        run: python -m scripts.run_cross_sectional_rank --input reports/fast/alpha_oos_enriched.csv --output reports/fast/cross_sectional_rank.csv --top-k 10
+
+      - name: Model diversity ensemble
+        run: python -m scripts.run_alpha_ensemble --input reports/fast/alpha_oos_enriched.csv --output reports/fast/alpha_ensemble_oos.csv --retrain-every 25
+
+      - name: Meta-label
+        run: python -m scripts.run_meta_label --input reports/fast/alpha_ensemble_oos.csv --output reports/fast/meta_label_oos.csv
+
+      - name: Stacked ensemble
+        run: python -m scripts.run_ensemble_stack --input reports/fast/meta_label_oos.csv --output reports/fast/ensemble_stack_oos.csv --rank-input reports/fast/cross_sectional_rank.csv --retrain-every 25
+
+      - name: Residual alpha
+        run: python -m scripts.run_residual_alpha --input reports/fast/ensemble_stack_oos.csv --output reports/fast/residual_alpha_oos.csv --retrain-every 25
+
+      - name: Economic comparison
+        run: python -m src.strategy_compare --input reports/fast/alpha_oos_enriched.csv --output reports/fast/strategy_comparison.csv
+
+      - name: Upload fast research artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: alpha-research-fast-${{ github.run_number }}
+          path: reports/fast/
+          retention-days: 14
