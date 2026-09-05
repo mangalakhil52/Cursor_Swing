@@ -13,13 +13,32 @@ def load_csv(path:Path)->pd.DataFrame:
     return df.sort_index()
 
 def main()->int:
-    p=argparse.ArgumentParser(); p.add_argument('--history',default='data/history'); p.add_argument('--output',default='reports/alpha_dataset.parquet'); p.add_argument('--benchmark',default='_benchmark.csv'); p.add_argument('--direction',choices=['LONG','SHORT'],default='LONG'); p.add_argument('--target-pct',type=float,default=.08); p.add_argument('--stop-pct',type=float,default=.04); args=p.parse_args()
+    p=argparse.ArgumentParser()
+    p.add_argument('--history',default='data/history')
+    p.add_argument('--output',default='reports/alpha_dataset.parquet')
+    p.add_argument('--benchmark',default='_benchmark.csv')
+    p.add_argument('--universe',default=None,help='Optional CSV containing Symbol/symbol/ticker to restrict the dataset')
+    p.add_argument('--direction',choices=['LONG','SHORT'],default='LONG')
+    p.add_argument('--target-pct',type=float,default=.08)
+    p.add_argument('--stop-pct',type=float,default=.04)
+    args=p.parse_args()
     root=Path(args.history); bench_path=root/args.benchmark
     if not root.exists(): raise SystemExit(f'History directory missing: {root}')
     if not bench_path.exists(): raise SystemExit(f'Benchmark history missing: {bench_path}')
-    benchmark=load_csv(bench_path)['close']; frames=[]; eligible=0
-    for path in sorted(root.glob('*.csv')):
+    benchmark=load_csv(bench_path)['close']
+
+    allowed=None
+    if args.universe:
+        universe=pd.read_csv(args.universe)
+        symbol_col=next((c for c in universe.columns if c.lower() in {'symbol','ticker'}),None)
+        if symbol_col is None: raise SystemExit(f'No symbol column found in {args.universe}: {list(universe.columns)}')
+        allowed=set(universe[symbol_col].dropna().astype(str).str.strip().str.upper())
+
+    frames=[]; eligible=0
+    paths=sorted(root.glob('*.csv'))
+    for path in paths:
         if path.name==args.benchmark: continue
+        if allowed is not None and path.stem.upper() not in allowed: continue
         try:
             daily=load_csv(path)
             if len(daily)<80: continue
