@@ -22,7 +22,7 @@ def _clip01(x):
 
 def _regime(bench_close: pd.Series, dt: pd.Timestamp) -> str:
     x = bench_close.loc[bench_close.index <= dt]
-    if len(x) < 60:
+    if len(x) < 61:
         return "SIDEWAYS"
     ret = x.pct_change()
     r20 = x.iloc[-1] / x.iloc[-21] - 1.0
@@ -66,15 +66,12 @@ def build_features(df: pd.DataFrame, benchmark: pd.DataFrame) -> pd.DataFrame:
     ema_alignment = 0.5 + 4.0 * pd.to_numeric(d.get("ema_spread", 0.0), errors="coerce")
     efficiency = _clip01(d.get("efficiency_20", 0.0))
     range_pos = _clip01(d.get("range_position_20", 0.5))
-    d["structural_score"] = (
-        0.40 * efficiency + 0.35 * _clip01(ema_alignment) + 0.25 * range_pos
-    )
+    d["structural_score"] = 0.40 * efficiency + 0.35 * _clip01(ema_alignment) + 0.25 * range_pos
 
     # Momentum acceleration: recent return versus the 20-bar average pace.
     r5 = pd.to_numeric(d.get("ret_5", 0.0), errors="coerce")
     r20 = pd.to_numeric(d.get("ret_20", 0.0), errors="coerce")
     d["residual_momentum"] = r5 - r20 / 4.0
-
     d["relative_strength"] = r20 - pd.to_numeric(d["benchmark_ret_20"], errors="coerce")
 
     # Reward efficient movement relative to realized volatility.
@@ -86,11 +83,7 @@ def build_features(df: pd.DataFrame, benchmark: pd.DataFrame) -> pd.DataFrame:
     regime = d["market_regime"].fillna("SIDEWAYS").astype(str)
     momentum_fit = _clip01(0.5 + 3.0 * r20)
     sideways_fit = _clip01(1.0 - r20.abs() / 0.10)
-    d["regime_fit"] = np.where(
-        regime.isin(["BULL", "STRONG_BULL", "BEAR", "STRONG_BEAR"]),
-        momentum_fit,
-        sideways_fit,
-    )
+    d["regime_fit"] = np.where(regime.isin(["BULL", "STRONG_BULL", "BEAR", "STRONG_BEAR"]), momentum_fit, sideways_fit)
     return d
 
 
