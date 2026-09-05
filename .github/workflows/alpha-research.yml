@@ -40,6 +40,7 @@ jobs:
           test -f scripts/build_alpha_dataset.py
           test -f scripts/update_history.py
           test -f scripts/update_benchmark_history.py
+          test -f scripts/build_research_features.py
           test -f src/__init__.py
           python -m compileall -q src scripts
       - name: Run unit tests before research
@@ -69,22 +70,24 @@ jobs:
         run: python -m scripts.run_walk_forward_alpha --input reports/alpha_dataset.parquet --output reports/alpha_oos_predictions.csv
       - name: Enrich OOS predictions with point-in-time features
         run: python -m scripts.enrich_oos_predictions --predictions reports/alpha_oos_predictions.csv --dataset reports/alpha_dataset.parquet --output reports/alpha_oos_enriched.csv
+      - name: Build shared point-in-time research features
+        run: python -m scripts.build_research_features --input reports/alpha_oos_enriched.csv --benchmark "$HISTORY_DIR/_benchmark.csv" --output reports/alpha_oos_features.csv
       - name: Probability uncertainty and calibration
         run: python -m scripts.run_uncertainty --input reports/alpha_oos_enriched.csv --output reports/alpha_uncertainty.csv
       - name: Regime-conditioned calibration
         run: python -m scripts.run_regime_calibration --input reports/alpha_oos_enriched.csv --output reports/regime_calibration.csv
       - name: Cross-sectional ranking
-        run: python -m scripts.run_cross_sectional_rank --input reports/alpha_oos_enriched.csv --output reports/cross_sectional_rank.csv --top-k 10
+        run: python -m scripts.run_cross_sectional_rank --input reports/alpha_oos_features.csv --output reports/cross_sectional_rank.csv --top-k 10
       - name: Learned cross-sectional alpha
-        run: python -m scripts.run_cross_sectional_alpha --input reports/alpha_oos_enriched.csv --output reports/cross_sectional_alpha_oos.csv
+        run: python -m scripts.run_cross_sectional_alpha --input reports/alpha_oos_features.csv --output reports/cross_sectional_alpha_oos.csv
       - name: Model diversity ensemble
-        run: python -m scripts.run_alpha_ensemble --input reports/alpha_oos_enriched.csv --output reports/alpha_ensemble_oos.csv --retrain-every 100
+        run: python -m scripts.run_alpha_ensemble --input reports/cross_sectional_rank.csv --output reports/alpha_ensemble_oos.csv --retrain-every 100
       - name: Walk-forward meta-label
-        run: python -m scripts.run_meta_label --input reports/alpha_ensemble_oos.csv --output reports/meta_label_oos.csv
+        run: python -m scripts.run_meta_label --input reports/alpha_ensemble_oos.csv --output reports/meta_label_oos.csv --min-train 500 --step 25
       - name: Stacked ensemble with all OOS signals
-        run: python -m scripts.run_ensemble_stack --input reports/meta_label_oos.csv --output reports/ensemble_stack_oos.csv --rank-input reports/cross_sectional_rank.csv --retrain-every 100
+        run: python -m scripts.run_ensemble_stack --input reports/meta_label_oos.csv --output reports/ensemble_stack_oos.csv --rank-input reports/cross_sectional_rank.csv
       - name: Residual alpha discovery
-        run: python -m scripts.run_residual_alpha --input reports/ensemble_stack_oos.csv --output reports/residual_alpha_oos.csv --retrain-every 100
+        run: python -m scripts.run_residual_alpha --input reports/ensemble_stack_oos.csv --output reports/residual_alpha_oos.csv
       - name: Multiple-testing and bootstrap evidence
         run: python -m scripts.run_multiple_testing --input reports/residual_alpha_oos.csv --output reports/multiple_testing.csv
       - name: Build executable portfolio candidates
@@ -96,17 +99,17 @@ jobs:
       - name: Final end-to-end system audit
         run: python -m scripts.final_system_audit --candidates reports/portfolio_candidates.csv --executions reports/execution_portfolio.csv --costs reports/execution_costs.csv --output reports/final_system_audit.json
       - name: Compare economic performance
-        run: python -m src.strategy_compare --input reports/alpha_oos_enriched.csv --output reports/strategy_comparison.csv
+        run: python -m src.strategy_compare --input reports/alpha_oos_enriched.csv --final-input reports/residual_alpha_oos.csv --output reports/strategy_comparison.csv
       - name: Evaluate structural plus alpha ensemble
-        run: python -m scripts.evaluate_ensemble --input reports/alpha_oos_enriched.csv --output reports/ensemble_oos_comparison.csv
+        run: python -m scripts.evaluate_ensemble --input reports/alpha_oos_features.csv --output reports/ensemble_oos_comparison.csv
       - name: Portfolio risk stress
-        run: python -m scripts.run_portfolio_risk --input reports/alpha_oos_enriched.csv --output reports/portfolio_risk.csv
+        run: python -m scripts.run_portfolio_risk --input reports/alpha_oos_features.csv --output reports/portfolio_risk.csv
       - name: Parameter sensitivity analysis
-        run: python -m scripts.run_sensitivity --input reports/alpha_oos_enriched.csv --output reports/parameter_sensitivity.csv
+        run: python -m scripts.run_sensitivity --input reports/alpha_oos_features.csv --output reports/parameter_sensitivity.csv
       - name: Robustness summary
         run: python -m scripts.run_robustness --input reports/parameter_sensitivity.csv --output reports/robustness_summary.csv
       - name: Adversarial execution stress
-        run: python -m scripts.run_adversarial_stress --input reports/alpha_oos_enriched.csv --output reports/adversarial_stress.csv
+        run: python -m scripts.run_adversarial_stress --input reports/alpha_oos_features.csv --output reports/adversarial_stress.csv
       - name: Upload research reports
         uses: actions/upload-artifact@v4
         with:
