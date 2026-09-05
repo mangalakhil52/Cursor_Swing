@@ -1,14 +1,15 @@
-"""Meta-labeling: learn whether an existing signal is worth taking.
-
-The primary model proposes direction/edge; this layer estimates conditional trade quality.
-It intentionally supports simple, auditable features and out-of-sample training only.
-"""
+"""Meta-labeling: estimate conditional quality of an existing alpha signal."""
 from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
-FEATURES=('probability','structural_score','rsi','atr_pct','volume_ratio','distance_to_resistance','distance_to_support','regime_score')
+FEATURES=(
+    'probability','ensemble_probability','ensemble_disagreement','structural_score',
+    'relative_strength','residual_momentum','volatility_efficiency','regime_fit',
+    'atr_pct','volume_ratio','efficiency_20','ema_spread','ret_5','ret_20','ret_60'
+)
+
 @dataclass(frozen=True)
 class MetaConfig:
     min_probability: float=.62
@@ -16,13 +17,13 @@ class MetaConfig:
     min_expected_r: float=.10
 
 def build_features(df:pd.DataFrame)->pd.DataFrame:
-    x=df.copy()
-    for c in FEATURES:
-        if c not in x:x[c]=0.
-    return x.loc[:,FEATURES].replace([np.inf,-np.inf],np.nan).fillna(0.)
+    missing=[c for c in FEATURES if c not in df.columns]
+    if missing:
+        raise ValueError(f'Meta-label missing required features: {missing}')
+    return df.loc[:,FEATURES].apply(pd.to_numeric,errors='coerce').replace([np.inf,-np.inf],np.nan)
 
 def meta_target(df:pd.DataFrame)->pd.Series:
-    """Positive only when the original signal's realized outcome clears a 0R hurdle."""
+    """Positive when the original signal's realized outcome clears a 0R hurdle."""
     if 'r_multiple' in df:return (pd.to_numeric(df.r_multiple,errors='coerce')>0).astype(int)
     return pd.to_numeric(df.get('target_before_stop',0),errors='coerce').fillna(0).astype(int)
 
