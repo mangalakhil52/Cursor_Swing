@@ -104,14 +104,17 @@ jobs:
       - name: Enrich OOS predictions
         run: python -m scripts.enrich_oos_predictions --predictions reports/fast/alpha_oos_predictions.csv --dataset reports/fast/alpha_dataset.parquet --output reports/fast/alpha_oos_enriched.csv
 
+      - name: Build shared point-in-time research features
+        run: python -m scripts.build_research_features --input reports/fast/alpha_oos_enriched.csv --benchmark "$HISTORY_DIR/_benchmark.csv" --output reports/fast/alpha_oos_features.csv
+
       - name: Cross-sectional rank
-        run: python -m scripts.run_cross_sectional_rank --input reports/fast/alpha_oos_enriched.csv --output reports/fast/cross_sectional_rank.csv --top-k 10
+        run: python -m scripts.run_cross_sectional_rank --input reports/fast/alpha_oos_features.csv --output reports/fast/cross_sectional_rank.csv --top-k 10
 
       - name: Model diversity ensemble
-        run: python -m scripts.run_alpha_ensemble --input reports/fast/alpha_oos_enriched.csv --output reports/fast/alpha_ensemble_oos.csv --retrain-every 25
+        run: python -m scripts.run_alpha_ensemble --input reports/fast/cross_sectional_rank.csv --output reports/fast/alpha_ensemble_oos.csv --retrain-every 25
 
       - name: Meta-label
-        run: python -m scripts.run_meta_label --input reports/fast/alpha_ensemble_oos.csv --output reports/fast/meta_label_oos.csv
+        run: python -m scripts.run_meta_label --input reports/fast/alpha_ensemble_oos.csv --output reports/fast/meta_label_oos.csv --min-train 500 --step 25
 
       - name: Stacked ensemble
         run: python -m scripts.run_ensemble_stack --input reports/fast/meta_label_oos.csv --output reports/fast/ensemble_stack_oos.csv --rank-input reports/fast/cross_sectional_rank.csv
@@ -120,7 +123,7 @@ jobs:
         run: python -m scripts.run_residual_alpha --input reports/fast/ensemble_stack_oos.csv --output reports/fast/residual_alpha_oos.csv
 
       - name: Economic comparison
-        run: python -m src.strategy_compare --input reports/fast/alpha_oos_enriched.csv --output reports/fast/strategy_comparison.csv
+        run: python -m src.strategy_compare --input reports/fast/alpha_oos_enriched.csv --final-input reports/fast/residual_alpha_oos.csv --output reports/fast/strategy_comparison.csv
 
       - name: Upload fast research artifact
         uses: actions/upload-artifact@v4
