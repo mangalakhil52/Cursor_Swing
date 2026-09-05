@@ -117,7 +117,7 @@ jobs:
         run: python -m scripts.run_ensemble_stack --input reports/fast/meta_label_oos.csv --output reports/fast/ensemble_stack_oos.csv --rank-input reports/fast/cross_sectional_rank.csv
 
       - name: Residual alpha
-        run: python -m scripts.run_residual_alpha --input reports/fast/ensemble_stack_oos.csv --output reports/fast/residual_alpha_oos.csv --retrain-every 25
+        run: python -m scripts.run_residual_alpha --input reports/fast/ensemble_stack_oos.csv --output reports/fast/residual_alpha_oos.csv
 
       - name: Economic comparison
         run: python -m src.strategy_compare --input reports/fast/alpha_oos_enriched.csv --output reports/fast/strategy_comparison.csv
