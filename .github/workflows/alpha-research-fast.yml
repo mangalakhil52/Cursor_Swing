@@ -66,16 +66,37 @@ jobs:
           print(f'fast_symbols={len(d)}')
           PY
 
-      - name: Build or reuse fast alpha dataset
+      - name: Update fast OHLCV history
         env:
           HISTORY_YEARS: ${{ inputs.history_years || '5' }}
         run: |
+          python -m scripts.update_history --years "$HISTORY_YEARS" --data-dir "$HISTORY_DIR" --universe reports/fast/research_universe.csv --limit "${{ inputs.symbols || '100' }}"
+
+      - name: Update Nifty benchmark
+        env:
+          HISTORY_YEARS: ${{ inputs.history_years || '5' }}
+        run: python -m scripts.update_benchmark_history --years "$HISTORY_YEARS" --out "$HISTORY_DIR/_benchmark.csv"
+
+      - name: Validate fast history cache
+        run: |
+          test -f "$HISTORY_DIR/_benchmark.csv"
+          test -s "$HISTORY_DIR/_benchmark.csv"
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd
+          u=pd.read_csv('reports/fast/research_universe.csv')
+          col=next(c for c in u.columns if c.lower() in {'symbol','ticker'})
+          missing=[s for s in u[col].dropna().astype(str).str.strip().str.upper() if not Path('data/history',f'{s}.csv').exists()]
+          if missing:
+              raise SystemExit(f'Missing fast history files: {missing[:10]} (total={len(missing)})')
+          print(f'benchmark_rows={len(pd.read_csv("data/history/_benchmark.csv"))}')
+          print(f'fast_history_symbols={len(u)}')
+          PY
+
+      - name: Build fast alpha dataset
+        run: |
           mkdir -p reports/fast
-          if [ -f reports/fast/alpha_dataset.parquet ]; then
-            echo 'Using cached fast alpha dataset'
-          else
-            python -m scripts.build_alpha_dataset --history "$HISTORY_DIR" --benchmark _benchmark.csv --output reports/fast/alpha_dataset.parquet
-          fi
+          python -m scripts.build_alpha_dataset --history "$HISTORY_DIR" --benchmark _benchmark.csv --universe reports/fast/research_universe.csv --output reports/fast/alpha_dataset.parquet
 
       - name: Walk-forward alpha
         run: python -m scripts.run_walk_forward_alpha --input reports/fast/alpha_dataset.parquet --output reports/fast/alpha_oos_predictions.csv
