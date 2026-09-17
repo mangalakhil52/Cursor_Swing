@@ -130,8 +130,8 @@ ANDHRSUGAR,The Andhra Sugars Limited,INE715B01021,EQ
 ANDREWYU,Andrew Yule & Company Limited,INE449C01025,EQ
 ANGELONE,Angel One Limited,INE732I01021,EQ
 ANIKINDS,Anik Industries Limited,INE087B01017,EQ
-ANMOL,Anmol India Limited,INE02AR01019,EQ
 ANNAPURNA,Annapurna Swadisht Limited,INE0MGM01017,EQ
+ANNU,Annu Projects Limited,INE103001017,EQ
 ANSALBU,Ansal Buildwell Limited,INE030C01015,EQ
 ANTELOPUS,Antelopus Selan Energy Limited,INE818A01017,EQ
 ANTGRAPHIC,Antarctica Limited,INE414B01021,EQ
@@ -155,6 +155,7 @@ APTUS,Aptus Value Housing Finance India Limited,INE852O01025,EQ
 AQYLON,Aqylon Nexus Limited,INE416A01051,EQ
 ARCHIDPLY,Archidply Industries Limited,INE877I01016,EQ
 ARCHIES,Archies Limited,INE731A01020,EQ
+ARCIL,Asset Reconstruction Company (India) Limited,INE148G01016,EQ
 ARCL,ARCL Organics Limited,INE372M01010,EQ
 ARDEE,Ardee Industries Limited,INE0XNF01022,EQ
 ARE&M,Amara Raja Energy & Mobility Limited,INE885A01032,EQ
@@ -405,7 +406,6 @@ CENTURYPLY,Century Plyboards (India) Limited,INE348B01021,EQ
 CERA,Cera Sanitaryware Limited,INE739E01017,EQ
 CESC,CESC Limited,INE486A01021,EQ
 CEWATER,Concord Enviro Systems Limited,INE037Z01029,EQ
-CFEL,Confidence Futuristic Energetech Limited,INE700F01024,EQ
 CGCL,Capri Global Capital Limited,INE180C01042,EQ
 CGPOWER,CG Power and Industrial Solutions Limited,INE067A01029,EQ
 CGVAK,CG Vak Software & Exports Limited,INE084D01010,EQ
@@ -764,7 +764,6 @@ GRANULES,Granules India Limited,INE101D01020,EQ
 GRAPHITE,Graphite India Limited,INE371A01025,EQ
 GRASIM,Grasim Industries Limited,INE047A01021,EQ
 GRAUWEIL,Grauer & Weil India Limited,INE266D01021,EQ
-GRAVISSHO,Graviss Hospitality Limited,INE214F01026,EQ
 GRAVITA,Gravita India Limited,INE024L01027,EQ
 GREAVESCOT,Greaves Cotton Limited,INE224A01026,EQ
 GREENLAM,Greenlam Industries Limited,INE544R01021,EQ
@@ -914,6 +913,7 @@ INDBANK,Indbank Merchant Banking Services Limited,INE841B01017,EQ
 INDGN,Indegene Limited,INE065X01017,EQ
 INDHOTEL,The Indian Hotels Company Limited,INE053A01029,EQ
 INDIACEM,The India Cements Limited,INE383A01012,EQ
+INDIAGLYCO,India Glycols Limited,INE560A01023,EQ
 INDIAMART,Indiamart Intermesh Limited,INE933S01016,EQ
 INDIANB,Indian Bank,INE562A01011,EQ
 INDIANCARD,Indian Card Clothing Company Limited,INE061A01014,EQ
@@ -1069,6 +1069,7 @@ KANOHAR,Kanohar Electricals Limited,INE877D01025,EQ
 KANPRPLA,Kanpur Plastipack Limited,INE694E01014,EQ
 KANSAINER,Kansai Nerolac Paints Limited,INE531A01024,EQ
 KAPSTON,Kapston Services Limited,INE542Z01028,EQ
+KARAMTARA,Karamtara Engineering Limited,INE590T01012,EQ
 KARMAENG,Karma Energy Limited,INE725L01011,EQ
 KARURVYSYA,Karur Vysya Bank Limited,INE036D01028,EQ
 KAVDEFENCE,Kavveri Defence & Wireless Technologies Limited,INE641C01019,EQ
@@ -1150,7 +1151,6 @@ KTKBANK,The Karnataka Bank Limited,INE614B01018,EQ
 KUANTUM,Kuantum Papers Limited,INE529I01021,EQ
 KUSUMGAR,Kusumgar Limited,INE0ISX01025,EQ
 KWIL,Kwality Wall's (India) Limited,INE2KCE01013,EQ
-LADDERUP,Ladderup Finance Limited,INE519D01015,EQ
 LAGNAM,Lagnam Spintex Limited,INE548Z01017,EQ
 LAHOTIOV,Lahoti Overseas Limited,INE515C01023,EQ
 LAKSHMIMIL,Lakshmi Mills Company Limited,INE938C01019,EQ
@@ -1170,6 +1170,7 @@ LAXMICOT,Laxmi Cotspin Limited,INE801V01019,EQ
 LAXMIDENTL,Laxmi Dental Limited,INE0WO601020,EQ
 LAXMIINDIA,Laxmi India Finance Limited,INE06WU01026,EQ
 LCCINFOTEC,LCC Infotech Limited,INE938A01021,EQ
+LCCPROJECT,LCC Projects Limited,INE1FPN01026,EQ
 LCL,Lohia Corp Limited,INE0QJW01029,EQ
 LEAPIND,LEAP India Limited,INE00GO01025,EQ
 LEMERITE,Le Merite Exports Limited,INE0G1L01025,EQ
@@ -1338,6 +1339,7 @@ MOTILALOFS,Motilal Oswal Financial Services Limited,INE338I01027,EQ
 MOTISONS,Motisons Jewellers Limited,INE0FRK01020,EQ
 MOTOGENFIN,The Motor & General Finance Limited,INE861B01023,EQ
 MPHASIS,MphasiS Limited,INE356A01018,EQ
+MPIMANIPAL,Manipal Payment and Identity Solutions Limited,INE241U01028,EQ
 MPSLTD,MPS Limited,INE943D01017,EQ
 MRF,MRF Limited,INE883A01011,EQ
 MRPL,Mangalore Refinery and Petrochemicals Limited,INE103A01014,EQ
@@ -1350,7 +1352,6 @@ MUFIN,Mufin Green Finance Limited,INE08KJ01020,EQ
 MUFTI,Credo Brands Marketing Limited,INE220Q01020,EQ
 MUKANDLTD,Mukand Limited,INE304A01026,EQ
 MUKESHB,Mukesh Babu Financial Services Limited,INE596B01017,EQ
-MUKKA,Mukka Proteins Limited,INE0CG401037,EQ
 MUNJALAU,Munjal Auto Industries Limited,INE672B01032,EQ
 MUNJALSHOW,Munjal Showa Limited,INE577A01027,EQ
 MURUDCERA,Murudeshwar Ceramics Limited,INE692B01014,EQ
@@ -1558,7 +1559,7 @@ PML,Paul Merchants Limited,INE291E01019,EQ
 PNB,Punjab National Bank,INE160A01022,EQ
 PNBGILTS,PNB Gilts Limited,INE859A01011,EQ
 PNBHOUSING,PNB Housing Finance Limited,INE572E01012,EQ
-PNC,Pritish Nandy Communications Limited,INE392B01011,EQ
+PNC,PNC Media and Entertainment Limited,INE392B01011,EQ
 PNCINFRA,PNC Infratech Limited,INE195J01029,EQ
 PNGJL,P N Gadgil Jewellers Limited,INE953R01016,EQ
 PNGSREVA,PNGS Reva Diamond Jewellery Limited,INE1RDG01013,EQ
@@ -1671,6 +1672,7 @@ RELIANCE,Reliance Industries Limited,INE002A01018,EQ
 RELIGARE,Religare Enterprises Limited,INE621H01010,EQ
 RELTD,Ravindra Energy Limited,INE206N01018,EQ
 REMSONSIND,Remsons Industries Limited,INE474C01023,EQ
+RENTOMOJO,Rentomojo Limited,INE08T701025,EQ
 RENUKA,Shree Renuka Sugars Limited,INE087H01022,EQ
 REPCOHOME,Repco Home Finance Limited,INE612J01015,EQ
 REPRO,Repro India Limited,INE461B01014,EQ
@@ -1935,6 +1937,7 @@ STARHEALTH,Star Health and Allied Insurance Company Limited,INE575P01011,EQ
 STARPAPER,Star Paper Mills Limited,INE733A01018,EQ
 STARTECK,Starteck Finance Limited,INE992I01013,EQ
 STCINDIA,The State Trading Corporation of India Limited,INE655A01013,EQ
+STEAMHOUSE,Steamhouse India Limited,INE0FRO01022,EQ
 STEELCAS,Steelcast Limited,INE124E01038,EQ
 STEELCITY,Steel City Securities Limited,INE395H01011,EQ
 STEELXIND,STEEL EXCHANGE INDIA LIMITED,INE503B01021,EQ
