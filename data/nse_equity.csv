@@ -106,7 +106,6 @@ ALKYLAMINE,Alkyl Amines Chemicals Limited,INE150B01039,EQ
 ALLCARGO,Allcargo Logistics Limited,INE418H01029,EQ
 ALLDIGI,Alldigi Tech Limited,INE835G01018,EQ
 ALLTIME,All Time Plastics Limited,INE0GV601021,EQ
-ALMONDZ,Almondz Global Securities Limited,INE326B01035,EQ
 ALOKINDS,Alok Industries Limited,INE270A01029,EQ
 ALPA,Alpa Laboratories Limited,INE385I01010,EQ
 ALPINETEX,Alpine Texworld Limited,INE1JCQ01037,EQ
@@ -326,6 +325,7 @@ BIRLACORPN,Birla Corporation Limited,INE340A01012,EQ
 BIRLAMONEY,Aditya Birla Money Limited,INE865C01022,EQ
 BIRLANU,BirlaNu Limited,INE557A01011,EQ
 BLACKBUCK,BLACKBUCK LIMITED,INE0UIZ01018,EQ
+BLACKROSE,Black Rose Inds. Limited,INE761G01016,EQ
 BLAL,BEML Land Assets Limited,INE0N7W01012,EQ
 BLBLIMITED,BLB Limited,INE791A01024,EQ
 BLEL,Behari Lal Engineering Limited,INE1EEM01017,EQ
@@ -414,6 +414,7 @@ CGVAK,CG Vak Software & Exports Limited,INE084D01010,EQ
 CHALET,Chalet Hotels Limited,INE427F01016,EQ
 CHAMBLFERT,Chambal Fertilizers & Chemicals Limited,INE085A01013,EQ
 CHEMBOND,Chembond Material Technologies Limited,INE995D01025,EQ
+CHEMCON,Chemcon Speciality Chemicals Limited,INE03YM01018,EQ
 CHEMCRUX,Chemcrux Enterprises Limited,INE298W01016,EQ
 CHEMFAB,Chemfab Alkalis Limited,INE783X01023,EQ
 CHEMPLASTS,Chemplast Sanmar Limited,INE488A01050,EQ
@@ -633,6 +634,7 @@ ETHOSLTD,Ethos Limited,INE04TZ01018,EQ
 EUREKAFORB,Eureka Forbes Limited,INE0KCE01017,EQ
 EUROBOND,Euro Panel Products Limited,INE505V01016,EQ
 EUROPRATIK,Euro Pratik Sales Limited,INE198501012,EQ
+EUROTEXIND,Eurotex Industries and Exports Limited,INE022C01012,EQ
 EVEREADY,Eveready Industries India Limited,INE128A01029,EQ
 EXCELINDUS,Excel Industries Limited,INE369A01029,EQ
 EXCELSOFT,Excelsoft Technologies Limited,INE606N01019,EQ
@@ -799,6 +801,7 @@ GVT&D,GE Vernova T&D India Limited,INE200A01026,EQ
 GYFTR,Gyftr Limited,INE724A01017,EQ
 HAL,Hindustan Aeronautics Limited,INE066F01020,EQ
 HALDER,Halder Venture Limited,INE115S01010,EQ
+HALDYNGL,Haldyn Glass Limited,INE506D01020,EQ
 HALEOSLABS,HALEOS LABS LIMITED,INE320X01016,EQ
 HAMPTON,Hampton Sky Realty Limited,INE299D01022,EQ
 HAPPSTMNDS,Happiest Minds Technologies Limited,INE419U01012,EQ
@@ -878,6 +881,7 @@ HTMEDIA,HT Media Limited,INE501G01024,EQ
 HUBTOWN,Hubtown Limited,INE703H01016,EQ
 HUDCO,Housing & Urban Development Corporation Limited,INE031A01017,EQ
 HUHTAMAKI,Huhtamaki India Limited,INE275B01026,EQ
+HYBRIDFIN,Hybrid Financial Services Limited,INE965B01022,EQ
 HYUNDAI,Hyundai Motor India Limited,INE0V6F01027,EQ
 IBULLSLTD,Indiabulls Limited,INE126M01010,EQ
 ICEMAKE,Ice Make Refrigeration Limited,INE520Y01019,EQ
@@ -925,6 +929,7 @@ INDIGO,InterGlobe Aviation Limited,INE646L01027,EQ
 INDIGOPNTS,Indigo Paints Limited,INE09VQ01012,EQ
 INDIQUBE,Indiqube Spaces Limited,INE06ST01018,EQ
 INDNIPPON,India Nippon Electricals Limited,INE092B01025,EQ
+INDOAMIN,Indo Amines Limited,INE760F01028,EQ
 INDOBORAX,Indo Borax & Chemicals Limited,INE803D01021,EQ
 INDOCO,Indoco Remedies Limited,INE873D01024,EQ
 INDOFARM,Indo Farm Equipment Limited,INE622H01018,EQ
@@ -974,7 +979,6 @@ IRFC,Indian Railway Finance Corporation Limited,INE053F01010,EQ
 IRIS,IRIS RegTech Solutions Limited,INE864K01010,EQ
 IRISDOREME,Iris Clothings Limited,INE01GN01025,EQ
 IRMENERGY,IRM Energy Limited,INE07U701015,EQ
-ISFT,Intrasoft Technologies Limited,INE566K01011,EQ
 ISGEC,Isgec Heavy Engineering Limited,INE858B01029,EQ
 ISHANCH,Ishan Dyes and Chemicals Limited,INE561M01018,EQ
 ISTLTD,I S T Limited,INE684B01029,EQ
@@ -1086,6 +1090,7 @@ KEI,KEI Industries Limited,INE878B01027,EQ
 KELLTONTEC,Kellton Tech Solutions Limited,INE164B01030,EQ
 KENNAMET,Kennametal India Limited,INE717A01029,EQ
 KERNEX,Kernex Microsystems (India) Limited,INE202H01019,EQ
+KESORAMIND,Kesoram Industries Limited,INE087A01019,EQ
 KEYFINSERV,Keynote Financial Services Limited,INE681C01015,EQ
 KFINTECH,Kfin Technologies Limited,INE138Y01010,EQ
 KHAICHEM,Khaitan Chemicals & Fertilizers Limited,INE745B01028,EQ
@@ -1121,6 +1126,7 @@ KOTAKBANK,Kotak Mahindra Bank Limited,INE237A01036,EQ
 KOTHARIPET,Kothari Petrochemicals Limited,INE720A01015,EQ
 KOTHARIPRO,Kothari Products Limited,INE823A01017,EQ
 KOTIC,Kothari Industrial Corporation Limited,INE972A01020,EQ
+KOTYARK,Kotyark Industries Limited,INE0J0B01017,EQ
 KOVAI,Kovai Medical Center & Hospital Limited,INE177F01017,EQ
 KPEL,K.P. Energy Limited,INE127T01021,EQ
 KPIGREEN,KPI Green Energy Limited,INE542W01025,EQ
@@ -1254,7 +1260,6 @@ MANKIND,Mankind Pharma Limited,INE634S01028,EQ
 MANOMAY,Manomay Tex India Limited,INE784W01015,EQ
 MANORAMA,Manorama Industries Limited,INE00VM01036,EQ
 MANORG,Mangalam Organics Limited,INE370D01013,EQ
-MANUGRAPH,Manugraph India Limited,INE867A01022,EQ
 MANYAVAR,Vedant Fashions Limited,INE825V01034,EQ
 MAPMYINDIA,C.E. Info Systems Limited,INE0BV301023,EQ
 MARALOVER,Maral Overseas Limited,INE882A01013,EQ
@@ -1291,6 +1296,7 @@ MEDPLUS,Medplus Health Services Limited,INE804L01022,EQ
 MEESHO,Meesho Limited,INE0VDM01015,EQ
 MEGASTAR,Megastar Foods Limited,INE00EM01016,EQ
 MEIL,Mangal Electrical Industries Limited,INE0PKD01011,EQ
+MENONBE,Menon Bearings Limited,INE071D01033,EQ
 MERCANTILE,Mercantile Ventures Limited,INE689O01013,EQ
 MERCURYEV,Mercury Ev-Tech Limited,INE763M01028,EQ
 METROBRAND,Metro Brands Limited,INE317I01021,EQ
@@ -1352,6 +1358,7 @@ MUFIN,Mufin Green Finance Limited,INE08KJ01020,EQ
 MUFTI,Credo Brands Marketing Limited,INE220Q01020,EQ
 MUKANDLTD,Mukand Limited,INE304A01026,EQ
 MUKESHB,Mukesh Babu Financial Services Limited,INE596B01017,EQ
+MUKTAARTS,Mukta Arts Limited,INE374B01019,EQ
 MUNJALAU,Munjal Auto Industries Limited,INE672B01032,EQ
 MUNJALSHOW,Munjal Showa Limited,INE577A01027,EQ
 MURUDCERA,Murudeshwar Ceramics Limited,INE692B01014,EQ
@@ -1472,6 +1479,7 @@ ONIXSOLAR,Onix Solar Energy Limited,INE173M01012,EQ
 ONWARDTEC,Onward Technologies Limited,INE229A01017,EQ
 OPTIEMUS,Optiemus Infracom Limited,INE350C01017,EQ
 OPTIFIN,Optimus Finance Limited,INE031G01022,EQ
+ORBTEXP,Orbit Exports Limited,INE231G01010,EQ
 ORCHASP,Orchasp Limited,INE215B01022,EQ
 ORCHPHARMA,Orchid Pharma Limited,INE191A01027,EQ
 ORICONENT,Oricon Enterprises Limited,INE730A01022,EQ
@@ -1605,6 +1613,7 @@ PRINCEPIPE,Prince Pipes And Fittings Limited,INE689W01016,EQ
 PRIORITY,Priority Jewels Limited,INE15EH01014,EQ
 PRISMX,Prismx Global Ventures Limited,INE286N01028,EQ
 PRITI,Priti International Limited,INE974Z01015,EQ
+PRITIKAUTO,Pritika Auto Industries Limited,INE583R01029,EQ
 PRIVISCL,Privi Speciality Chemicals Limited,INE959A01019,EQ
 PROSTARM,Prostarm Info Systems Limited,INE0BX301013,EQ
 PROTEAN,Protean eGov Technologies Limited,INE004A01022,EQ
@@ -1628,6 +1637,7 @@ QPOWER,Quality Power Electrical Equipments Limited,INE0SII01026,EQ
 QUADFUTURE,Quadrant Future Tek Limited,INE0LRY01011,EQ
 QUESS,Quess Corp Limited,INE615P01015,EQ
 QUICKHEAL,Quick Heal Technologies Limited,INE306L01010,EQ
+QUINTEGRA,Quintegra Solutions Limited,INE033B01011,EQ
 RACE,Race Eco Chain Limited,INE084Q01012,EQ
 RACLGEAR,RACL Geartech Limited,INE704B01017,EQ
 RADAAN,Radaan Mediaworks India Limited,INE874F01027,EQ
@@ -1835,6 +1845,7 @@ SHARDACROP,Sharda Cropchem Limited,INE221J01015,EQ
 SHARDAMOTR,Sharda Motor Industries Limited,INE597I01028,EQ
 SHAREINDIA,Share India Securities Limited,INE932X01026,EQ
 SHBAJRG,Shri Bajrang Alliance Limited,INE402H01015,EQ
+SHEMAROO,Shemaroo Entertainment Limited,INE363M01019,EQ
 SHERVANI,Shervani Industrial Syndicate Limited,INE011D01013,EQ
 SHILCTECH,Shilchar Technologies Limited,INE024F01011,EQ
 SHILGRAVQ,Shilp Gravures Limited,INE960A01017,EQ
@@ -1948,6 +1959,7 @@ STEELCAS,Steelcast Limited,INE124E01038,EQ
 STEELCITY,Steel City Securities Limited,INE395H01011,EQ
 STEELXIND,STEEL EXCHANGE INDIA LIMITED,INE503B01021,EQ
 STEL,Stel Holdings Limited,INE577L01016,EQ
+STERTOOLS,Sterling Tools Limited,INE334A01023,EQ
 STLNETWORK,STL Networks Limited,INE1VXE01018,EQ
 STLSTRINF,Steel Strips Infrastructures Limited,INE205F01016,EQ
 STOVEKRAFT,Stove Kraft Limited,INE00IN01015,EQ
@@ -1971,6 +1983,7 @@ SUMMITSEC,Summit Securities Limited,INE519C01017,EQ
 SUNCLAY,Sundaram Clayton Limited,INE0Q3R01026,EQ
 SUNDARAM,Sundaram Multi Pap Limited,INE108E01023,EQ
 SUNDARMFIN,Sundaram Finance Limited,INE660A01013,EQ
+SUNDRMBRAK,Sundaram Brake Linings Limited,INE073D01013,EQ
 SUNDRMFAST,Sundram Fasteners Limited,INE387A01021,EQ
 SUNDROP,Sundrop Brands Limited,INE209A01019,EQ
 SUNFLAG,Sunflag Iron And Steel Company Limited,INE947A01014,EQ
@@ -2221,7 +2234,6 @@ VIPIND,VIP Industries Limited,INE054A01027,EQ
 VIRAT,Virat Industries Limited,INE467D01017,EQ
 VIRINCHI,Virinchi Limited,INE539B01017,EQ
 VISACHROME,VISA Chrome Limited,INE286H01012,EQ
-VISAKAIND,Visaka Industries Limited,INE392A01021,EQ
 VISHAL,Vishal Fabrics Limited,INE755Q01025,EQ
 VISHNU,Vishnu Chemicals Limited,INE270I01022,EQ
 VISHWARAJ,Vishwaraj Sugar Industries Limited,INE430N01022,EQ
