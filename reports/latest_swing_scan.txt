@@ -1,11 +1,11 @@
 ==============================================================================
   INDIAN SWING TRADE FINDER — TWO BEST OF THE WEEK
 ==============================================================================
-  Scan time : 2026-10-14 22:53 IST
+  Scan time : 2026-10-15 22:42 IST
   Mode      : WEEKLY SWING (hold 5-10 trading days)
   Nifty bias: NEUTRAL
   Nifty     : day +0.00% | week +0.00% | below 21 EMA
-  Universe  : 2348/2348 scanned | filtered 2317
+  Universe  : 2344/2344 scanned | filtered 2312
 
   NO SWING TRADES THIS WEEK — stay in cash.
 ==============================================================================
