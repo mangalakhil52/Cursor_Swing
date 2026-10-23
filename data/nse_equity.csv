@@ -243,7 +243,7 @@ AXTEL,Axtel Industries Limited,INE767C01012,EQ
 AYE,Aye Finance Limited,INE501X01029,EQ
 AYMSYNTEX,AYM Syntex Limited,INE193B01039,EQ
 AZAD,Azad Engineering Limited,INE02IJ01035,EQ
-AZADIND,Azad India Mobility Limited,INE566M01017,EQ
+AZADIND,Azad India Mobility Limited,INE566M01025,EQ
 BAGFILMS,B.A.G Films and Media Limited,INE116D01028,EQ
 BAIDFIN,Baid Finserv Limited,INE020D01022,EQ
 BAJAJ-AUTO,Bajaj Auto Limited,INE917I01010,EQ
@@ -350,6 +350,7 @@ BMWVENTLTD,BMW Ventures Limited,INE965W01036,EQ
 BNAGROCHEM,BN Agrochem Limited,INE00HZ01011,EQ
 BOHRAIND,Bohra Industries Limited,INE802W01023,EQ
 BOMDYEING,Bombay Dyeing & Mfg Company Limited,INE032A01023,EQ
+BONFIG,Bonfiglioli Transmissions Limited,INE28SO01013,EQ
 BONLON,Bonlon Industries Limited,INE0B9A01018,EQ
 BORANA,Borana Weaves Limited,INE16SF01016,EQ
 BOROLTD,Borosil Limited,INE02PY01013,EQ
@@ -452,7 +453,6 @@ COFFEEDAY,Coffee Day Enterprises Limited,INE335K01011,EQ
 COFORGE,Coforge Limited,INE591G01025,EQ
 COHANCE,Cohance Lifesciences Limited,INE03QK01018,EQ
 COLPAL,Colgate Palmolive (India) Limited,INE259A01022,EQ
-COMFINTE,Comfort Intech Limited,INE819A01049,EQ
 COMPEAU,Competent Automobiles Company Limited,INE823B01015,EQ
 COMPUSOFT,Compucom Software Limited,INE453B01029,EQ
 COMSYN,Commercial Syn Bags Limited,INE073V01015,EQ
@@ -815,7 +815,6 @@ HAL,Hindustan Aeronautics Limited,INE066F01020,EQ
 HALDER,Halder Venture Limited,INE115S01010,EQ
 HALDYNGL,Haldyn Glass Limited,INE506D01020,EQ
 HALEOSLABS,HALEOS LABS LIMITED,INE320X01016,EQ
-HAMPTON,Hampton Sky Realty Limited,INE299D01022,EQ
 HAPPSTMNDS,Happiest Minds Technologies Limited,INE419U01012,EQ
 HAPPYFORGE,Happy Forgings Limited,INE330T01021,EQ
 HARDWYN,Hardwyn India Limited,INE626Z01029,EQ
@@ -901,7 +900,7 @@ ICEMAKE,Ice Make Refrigeration Limited,INE520Y01019,EQ
 ICICIAMC,ICICI Prudential Asset Management Company Limited,INE346A01027,EQ
 ICICIBANK,ICICI Bank Limited,INE090A01021,EQ
 ICICIGI,ICICI Lombard General Insurance Company Limited,INE765G01017,EQ
-ICICIPRULI,ICICI Prudential Life Insurance Company Limited,INE726G01019,EQ
+ICICILIFE,ICICI Life Insurance Limited,INE726G01019,EQ
 ICIL,Indo Count Industries Limited,INE483B01026,EQ
 ICRA,ICRA Limited,INE725G01011,EQ
 IDBI,IDBI Bank Limited,INE008A01015,EQ
@@ -1448,6 +1447,7 @@ NITCO,Nitco Limited,INE858F01012,EQ
 NITINSPIN,Nitin Spinners Limited,INE229H01012,EQ
 NITIRAJ,Nitiraj Engineers Limited,INE439T01012,EQ
 NITTAGELA,Nitta Gelatin India Limited,INE265B01019,EQ
+NITYAS,Nityas Gems and Jewellery Limited,INE211501023,EQ
 NIVABUPA,Niva Bupa Health Insurance Company Limited,INE995S01015,EQ
 NKIND,NK Industries Limited,INE542C01019,EQ
 NLCINDIA,NLC India Limited,INE589A01014,EQ
@@ -1935,6 +1935,7 @@ SMCGLOBAL,SMC Global Securities Limited,INE103C01036,EQ
 SMLMAH,SML Mahindra Limited,INE294B01019,EQ
 SMLT,Sarthak Metals Limited,INE017W01010,EQ
 SMSPHARMA,SMS Pharmaceuticals Limited,INE812G01025,EQ
+SMT,Sahajanand Medical Technologies Limited,INE356Y01018,EQ
 SNOWMAN,Snowman Logistics Limited,INE734N01019,EQ
 SOBHA,Sobha Limited,INE671H01015,EQ
 SOFTTECH,Softtech Engineers Limited,INE728Z01015,EQ
@@ -2138,6 +2139,7 @@ TNPETRO,Tamilnadu PetroProducts Limited,INE148A01019,EQ
 TNPL,Tamil Nadu Newsprint & Papers Limited,INE107A01015,EQ
 TOKYOPLAST,Tokyo Plast International Limited,INE932C01012,EQ
 TOLINS,Tolins Tyres Limited,INE0RWQ01014,EQ
+TONBO,Tonbo Imaging India Limited,INE0LDG01026,EQ
 TORNTPHARM,Torrent Pharmaceuticals Limited,INE685A01028,EQ
 TORNTPOWER,Torrent Power Limited,INE813H01021,EQ
 TOUCHWOOD,Touchwood Entertainment Limited,INE486Y01013,EQ
@@ -2276,6 +2278,7 @@ VLSFINANCE,VLS Finance Limited,INE709A01018,EQ
 VMART,V-Mart Retail Limited,INE665J01013,EQ
 VMM,Vishal Mega Mart Limited,INE01EA01019,EQ
 VMSTMT,VMS TMT Limited,INE0SJA01013,EQ
+VNL,Vishal Nirmiti Limited,INE1O5L01025,EQ
 VOEPL,Virtuoso Optoelectronics Limited,INE0I0T01010,EQ
 VOGL,Vedanta Oil and Gas Limited,INE704J01044,EQ
 VOITHPAPR,Voith Paper Fabrics India Limited,INE285C01015,EQ
@@ -2343,6 +2346,7 @@ ZENITHEXPO,Zenith Exports Limited,INE058B01018,EQ
 ZENITHSTL,Zenith Steel Pipes & Industries Limited,INE318D01020,EQ
 ZENSARTECH,Zensar Technologies Limited,INE520A01027,EQ
 ZENTEC,Zen Technologies Limited,INE251B01027,EQ
+ZETWERK,Zetwerk Manufacturing Businesses Limited,INE09PO01019,EQ
 ZFCVINDIA,ZF Commercial Vehicle Control Systems India Limited,INE342J01019,EQ
 ZFSTEERING,ZF Steering Gear (India) Limited,INE116C01012,EQ
 ZIMLAB,Zim Laboratories Limited,INE518E01015,EQ
