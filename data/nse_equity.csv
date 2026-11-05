@@ -1,6 +1,5 @@
 Symbol,Company Name,ISIN Code,Series
 20MICRONS,20 Microns Limited,INE144J01027,EQ
-21STCENMGM,21st Century Management Services Limited,INE253B01015,EQ
 360ONE,360 ONE WAM LIMITED,INE466L01038,EQ
 3BBLACKBIO,3B Blackbio Dx Limited,INE994E01018,EQ
 3MINDIA,3M India Limited,INE470A01017,EQ
@@ -248,6 +247,7 @@ AYMSYNTEX,AYM Syntex Limited,INE193B01039,EQ
 AZAD,Azad Engineering Limited,INE02IJ01035,EQ
 AZADIND,Azad India Mobility Limited,INE566M01025,EQ
 BAGFILMS,B.A.G Films and Media Limited,INE116D01028,EQ
+BAHETI,Baheti Recycling Industries Limited,INE029Q01017,EQ
 BAIDFIN,Baid Finserv Limited,INE020D01022,EQ
 BAJAJ-AUTO,Bajaj Auto Limited,INE917I01010,EQ
 BAJAJCON,Bajaj Consumer Care Limited,INE933K01021,EQ
@@ -371,6 +371,7 @@ BRAHMINFRA,Brahmaputra Infrastructure Limited,INE320I01017,EQ
 BRIGADE,Brigade Enterprises Limited,INE791I01019,EQ
 BRIGHOTEL,Brigade Hotel Ventures Limited,INE03NU01014,EQ
 BRIGHTBR,Bright Brothers Limited,INE630D01010,EQ
+BRIGHTOUTD,Bright Outdoor Media Limited,INE0OMI01019,EQ
 BRITANNIA,Britannia Industries Limited,INE216A01030,EQ
 BRNL,Bharat Road Network Limited,INE727S01012,EQ
 BROOKS,Brooks Laboratories Limited,INE650L01011,EQ
@@ -769,7 +770,7 @@ GMRAIRPORT,GMR AIRPORTS LIMITED,INE776C01039,EQ
 GMRP&UI,GMR Power and Urban Infra Limited,INE0CU601026,EQ
 GNA,GNA Axles Limited,INE934S01014,EQ
 GNFC,Gujarat Narmada Valley Fertilizers and Chemicals Limited,INE113A01013,EQ
-GNRL,Gujarat Natural Resources Limited,INE207H01018,EQ
+GNRL,Gujarat Natural Resources Limited,INE207H01026,EQ
 GOACARBON,Goa Carbon Limited,INE426D01013,EQ
 GOCLCORP,GOCL Corporation Limited,INE077F01035,EQ
 GOCOLORS,Go Fashion (India) Limited,INE0BJS01011,EQ
